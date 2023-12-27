@@ -71,26 +71,46 @@ class Project {
     }
 }
 
-// Create a new project instance
-const myProject = new Project('Software Development');
+class TodoList{
+    constructor(){
+        this.projects = []
+    }
 
-// Retrieve project name using the getter method
-console.log(myProject.getProjectName()); // Output: Software Development
+    addProject(project){
+        this.projects.push(project)
+    }
 
-// Set a new project name using the setter method
-myProject.setProjectName('Web Development');
+    getProjects(){
+        return this.projects
+    }
+}
 
-// Retrieve the updated project name
-console.log(myProject.getProjectName()); // Output: Web Development
 
-// Create task instances
+const myTodoList = new TodoList()
+
+const project1 = new Project('Software Development');
+const project2 = new Project("Game Development");
+
+// Create tasks
 const task1 = new Task('Implement Feature', '2023-01-15', 'Add new functionality', 'high');
 const task2 = new Task('Bug Fix', '2023-01-20', 'Fix critical bug', 'medium');
 
 // Add tasks to the project
-myProject.addTask(task1);
-myProject.addTask(task2);
+project1.addTask(task1);
+project1.addTask(task2);
 
-// Retrieve the list of tasks associated with the project
-console.log(myProject.getTasks()); // Output: [Task { ... }, Task { ... }]
+const pTask1 = new Task('Implement Feature', '2023-01-15', 'Add new functionality', 'high');
+const pTask2 = new Task('Bug Fix', '2023-01-20', 'Fix critical bug', 'medium');
+
+project2.addTask(pTask1);
+project2.addTask(pTask2);
+
+
+// Add the project to the todo list
+myTodoList.addProject(project1);
+myTodoList.addProject(project2)
+
+// Retrieve the list of projects in the todo list
+console.log(myTodoList.getProjects()); // Output: [Project { ... }]
+
 
