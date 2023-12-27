@@ -56,44 +56,43 @@ class Project {
     }
 }
 
-class TodoList{
-    constructor(){
+class TodoList {
+    constructor() {
         this.projects = []
     }
 
-    addProject(project){
+    addProject(project) {
         this.projects.push(project)
     }
 
-    getProjects(){
+    getProjects() {
         return this.projects
     }
 }
 
 
-const myTodoList = new TodoList()
+class Storage {
+    static saveTodoList(data) {
+        localStorage.setItem("todoList", JSON.stringify(data))
+    }
 
-const project1 = new Project('Software Development');
-const project2 = new Project("Game Development");
+    static getTodoList() {
+        const todoList = Object.assign(new TodoList(), 
+        JSON.parse(localStorage.getItem('todoList')))
+        Storage.saveTodoList(todoList)
+        return todoList
+    }
 
-// Create tasks
-const task1 = new Task('Implement Feature', '2023-01-15', 'Add new functionality', 'high');
-const task2 = new Task('Bug Fix', '2023-01-20', 'Fix critical bug', 'medium');
+    static addProject(project){
+        const todoList = Storage.getTodoList()
+        todoList.addProject(project)
+        Storage.saveTodoList(todoList)
+    }
+}
 
-// Add tasks to the project
-project1.addTask(task1);
-project1.addTask(task2);
-
-const pTask1 = new Task('Implement Feature', '2023-01-15', 'Add new functionality', 'high');
-const pTask2 = new Task('Bug Fix', '2023-01-20', 'Fix critical bug', 'medium');
-
-project2.addTask(pTask1);
-project2.addTask(pTask2);
+Storage.addProject("Earth")
+Storage.addProject("Saturn")
+Storage.addProject("Devil")
+Storage.addProject("Santa")
 
 
-// Add the project to the todo list
-myTodoList.addProject(project1);
-myTodoList.addProject(project2)
-
-// Retrieve the list of projects in the todo list
-console.log(myTodoList.getProjects()); // Output: [Project { ... }]
