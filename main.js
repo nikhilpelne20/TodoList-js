@@ -6,66 +6,51 @@ class Task {
         this.complete = false;
         this.priority = priority;
     }
-
     getName() {
         return this.name;
     }
-
     setName(newName) {
         this.name = newName;
     }
-
     getDate() {
         return this.dueDate;
     }
-
     setDate(newDueDate) {
         this.dueDate = newDueDate;
     }
-
     getDescription() {
         return this.description;
     }
-
     setDescription(newDescription) {
         this.description = newDescription;
     }
-
     getComplete() {
         return this.complete;
     }
-
     setComplete(newComplete) {
         this.complete = newComplete;
     }
-
     getPriority() {
         return this.priority;
     }
-
     setPriority(newPriority) {
         this.priority = newPriority;
     }
 }
-
 class Project {
     constructor(name) {
         this.name = name;
         this.tasks = [];
     }
-
     getProjectName() {
         return this.name;
     }
-
     setProjectName(newName) {
         this.name = newName;
     }
-
     addTask(task) {
         this.tasks.push(task);
     }
-
     getTasks() {
         return this.tasks;
     }
@@ -112,5 +97,3 @@ myTodoList.addProject(project2)
 
 // Retrieve the list of projects in the todo list
 console.log(myTodoList.getProjects()); // Output: [Project { ... }]
-
-
