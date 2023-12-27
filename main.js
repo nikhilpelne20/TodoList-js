@@ -48,27 +48,49 @@ class Task {
     }
 }
 
-// Create a new task instance
-const myTask = new Task('Complete Assignment', '2023-01-10', 'Finish the project', 'high');
+class Project {
+    constructor(name) {
+        this.name = name;
+        this.tasks = [];
+    }
 
-// Retrieve task properties using getter methods
-console.log(myTask.getName());         // Output: Complete Assignment
-console.log(myTask.getDate());         // Output: 2023-01-10
-console.log(myTask.getDescription());  // Output: Finish the project
-console.log(myTask.getComplete());     // Output: false
-console.log(myTask.getPriority());     // Output: high
+    getProjectName() {
+        return this.name;
+    }
 
-// Update task properties using setter methods
-myTask.setName('New Task Name');
-myTask.setDate('2023-01-15');
-myTask.setDescription('Revise and polish');
-myTask.setComplete(true);
-myTask.setPriority('medium');
+    setProjectName(newName) {
+        this.name = newName;
+    }
 
-// Retrieve updated task properties
-console.log(myTask.getName());         // Output: New Task Name
-console.log(myTask.getDate());         // Output: 2023-01-15
-console.log(myTask.getDescription());  // Output: Revise and polish
-console.log(myTask.getComplete());     // Output: true
-console.log(myTask.getPriority());     // Output: medium
+    addTask(task) {
+        this.tasks.push(task);
+    }
+
+    getTasks() {
+        return this.tasks;
+    }
+}
+
+// Create a new project instance
+const myProject = new Project('Software Development');
+
+// Retrieve project name using the getter method
+console.log(myProject.getProjectName()); // Output: Software Development
+
+// Set a new project name using the setter method
+myProject.setProjectName('Web Development');
+
+// Retrieve the updated project name
+console.log(myProject.getProjectName()); // Output: Web Development
+
+// Create task instances
+const task1 = new Task('Implement Feature', '2023-01-15', 'Add new functionality', 'high');
+const task2 = new Task('Bug Fix', '2023-01-20', 'Fix critical bug', 'medium');
+
+// Add tasks to the project
+myProject.addTask(task1);
+myProject.addTask(task2);
+
+// Retrieve the list of tasks associated with the project
+console.log(myProject.getTasks()); // Output: [Task { ... }, Task { ... }]
 
