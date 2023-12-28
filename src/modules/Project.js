@@ -3,16 +3,20 @@ export default class Project {
         this.name = name;
         this.tasks = [];
     }
-    getProjectName() {
+    setName(name){
+        this.name = name
+    }
+    setTasks(task){
+        this.tasks = task
+    }
+    getName() {
         return this.name;
-    }
-    setProjectName(newName) {
-        this.name = newName;
-    }
-    addTask(task) {
-        this.tasks.push(task);
     }
     getTasks() {
         return this.tasks;
+    }
+    addTask(task) {
+        if(this.tasks.some((existingTask)=> existingTask.getName() === task.name)) return;
+        this.tasks.push(task);
     }
 }
