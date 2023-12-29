@@ -19,4 +19,9 @@ export default class Project {
         if(this.tasks.some((existingTask)=> existingTask.getName() === task.name)) return;
         this.tasks.push(task);
     }
+
+    deleteTask(taskName){
+        const task = this.tasks.find((task)=> task.getName() === taskName)
+        this.tasks.splice(this.tasks.indexOf(task),1)
+    }
 }

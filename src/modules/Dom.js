@@ -9,5 +9,10 @@ export default class Dom {
         Storage.addTask("Jerry", new Task("sun"));
         Storage.addTask("Jerry", new Task("moon"));
         Storage.addTask("Jerry", new Task("stars"));
+        Storage.addTask("Tom", new Task("pirateKing"))
+        Storage.addTask("Tom", new Task("pirateHunter"))
+        Storage.addTask("Tom", new Task("starBoy"))
+        // Storage.deleteProject("Jerry")
+        // Storage.deleteProject("Tom")
     }
 }
