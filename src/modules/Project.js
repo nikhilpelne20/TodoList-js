@@ -15,9 +15,19 @@ export default class Project {
     getTasks() {
         return this.tasks;
     }
+
+    getTask(taskName){
+        return this.tasks.find((task)=> task.getName() === taskName)
+    }
+
+
     addTask(task) {
         if(this.tasks.some((existingTask)=> existingTask.getName() === task.name)) return;
         this.tasks.push(task);
+    }
+
+    contains(task){
+        return this.tasks.some((existingTask)=> existingTask.getName() === task.name)
     }
 
     deleteTask(taskName){

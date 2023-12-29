@@ -16,6 +16,10 @@ export default class TodoList {
         this.projects.push(project)
     }
 
+    contains(project){
+        return this.projects.some(existingProject => existingProject.getName() === project)
+    }
+
     deleteProject(projectName){
         const project = this.projects.find((project)=> project.getName()===projectName)
         this.projects.splice(this.projects.indexOf(project),1)
@@ -28,4 +32,6 @@ export default class TodoList {
     getProjects() {
         return this.projects
     }
+
+    
 }

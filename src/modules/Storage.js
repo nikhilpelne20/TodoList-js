@@ -52,6 +52,17 @@ export default class Storage {
         newTodoList.getProject(projectName).deleteTask(taskName)
         Storage.saveTodoList(newTodoList)
     }
+
+    static renameProject(projectName,newName){
+        const newTodoList = Storage.getTodoList()
+        newTodoList.getProject(projectName).setName(newName)
+        Storage.saveTodoList(newTodoList)
+    }
+    static renameTask(projectName,taskName,newTaskName){
+        const newTodoList = Storage.getTodoList()
+        newTodoList.getProject(projectName).getTask(taskName).setName(newTaskName)
+        Storage.saveTodoList(newTodoList)
+    }
     
 }
 
