@@ -7,3 +7,12 @@
 body {
   font-family: 'Roboto', sans-serif;
 }
+
+.project-nav-btn{
+  margin-right: 10px;
+}
+
+.taskComplete{
+  display: flex;
+  gap: 100px;
+}
