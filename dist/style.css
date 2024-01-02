@@ -8,11 +8,99 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.project-nav-btn{
-  margin-right: 10px;
+.main-container{
+  display: flex;
+  height: 100vh;
 }
 
-.taskComplete{
+/* left-section  */
+
+.todo-left-section{
+  width: 300px;
+  background-color: rgb(248,249,252);
+  height: 100%;
+  padding: 20px;
+}
+
+.user-nav{
+  padding: 7px;
   display: flex;
-  gap: 100px;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  
+}
+.user-name{
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-size: 1.4rem;
+}
+
+.left-container-fix{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.project-btn-fix{
+  display: flex;
+  gap: 10px;
+}
+
+.added-project-section{
+  display: flex;
+  flex-direction: column;
+}
+
+.added-project-section button, .left-container-fix button,.add-new-project button{
+  padding: 7px;
+  margin-bottom: 5px;
+  background-color: rgb(248,249,252);
+  border: none;
+  font-size: 1rem;
+  border-radius: 5px;
+  color: rgb(50, 50, 50);
+}
+
+.added-project-section button:hover,
+.left-container-fix button:hover ,.add-new-project button:hover{
+  background-color: rgb(238,238,238);
+  cursor: pointer;
+}
+
+
+
+.left-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.add-project-btn{
+  font-size: 1.6rem;
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+}
+
+.add-new-project button{
+  font-size: 1.4rem;
+  color: rgb(100, 100, 100);
+}
+
+.add-new-project{
+  display: flex;
+  flex-direction: column;
+}
+
+.added-project-btn{
+  display: flex;
+  justify-content: space-between;
+}
+
+.project-name{
+  display: flex;
+  gap: 10px;
 }
