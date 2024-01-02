@@ -23,6 +23,7 @@ export default class Dom {
         // Storage.deleteProject("Tom")
         // Storage.renameTask("Jerry","moon","Earth")
         // Storage.renameTask("Jerry","sun","nika")
+        Storage.deleteTask("Tom","starBoy")
         
 
         Dom.loadProjects()
