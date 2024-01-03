@@ -27,6 +27,7 @@ export default class Dom {
     
         // Dom.loadProjects()
         Dom.openProject()
+        Dom.openTask()
     }
 
     static openProject(){
@@ -46,6 +47,26 @@ export default class Dom {
         
         function cancelForm() {
             document.getElementById('projectForm').style.display = 'none';
+            console.log("cancel form")
+        }
+    }
+    static openTask(){
+        document.querySelector('.add-task-btn').addEventListener('click', toggleForm);
+
+        function toggleForm() {
+            var projectForm = document.getElementById('taskForm');
+            projectForm.style.display = (projectForm.style.display === 'block') ? 'none' : 'block';
+        }
+        document.querySelector('.add-taskForm-btn').addEventListener('click', addProject)
+        function addProject() {
+            console.log('Project added');
+            cancelForm();
+        }
+
+        document.querySelector('.cancel-taskForm-btn').addEventListener('click',cancelForm)
+        
+        function cancelForm() {
+            document.getElementById('taskForm').style.display = 'none';
             console.log("cancel form")
         }
     }
