@@ -109,6 +109,7 @@ body {
 }
 
 .add-new-project{
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
 }
