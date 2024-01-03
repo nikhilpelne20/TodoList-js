@@ -266,6 +266,7 @@ button.cancel-btn{
 /* add task form  */
 
 .add-task-form{
+  margin-bottom: 100px;
   display: none;
 }
 
