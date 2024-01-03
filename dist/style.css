@@ -13,10 +13,10 @@ body {
   height: 100vh;
 }
 
-/* left-section  */
+/*todo-left-section  */
 
 .todo-left-section{
-  width: 300px;
+  width: 20%;
   background-color: rgb(248,249,252);
   height: 100%;
   padding: 20px;
@@ -69,8 +69,6 @@ body {
   cursor: pointer;
 }
 
-
-
 .left-container{
   display: flex;
   flex-direction: column;
@@ -103,4 +101,65 @@ body {
 .project-name{
   display: flex;
   gap: 10px;
+}
+
+
+/* todo-right-section */
+
+.todo-right-section{
+  width: 80%;
+  padding: 80px 300px 10px 150px;
+}
+.project-name-head{
+  margin-bottom: 30px;
+}
+.project-name-head h3{
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.tasks-list-data{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.project-task-name{
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+}
+.task-name{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.task-date{
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.task-edit-btn{
+  display: flex;
+  gap: 10px;
+}
+.add-project-task-btn button{
+  padding: 3px;
+  margin-top: 15px;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(248,249,252);
+  border: none;
+  font-size: 1.4rem;
+  border-radius: 5px;
+  color: rgba(50, 50, 50, 0.758);
+}
+
+.add-project-task-btn button:hover{
+
+  background-color: rgb(238,238,238);
+  cursor: pointer;
 }
