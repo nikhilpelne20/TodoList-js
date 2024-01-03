@@ -8,6 +8,14 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+:root{
+  --primary-bg-color:rgb(248,249,252);
+  --secondary-bg-color:#ffffff;
+  --primary-txt-color:rgb(50, 50, 50);
+  --secondary-txt-color:rgb(100, 100, 100);
+  --primary-hover-color:rgb(238,238,238);
+}
+
 .main-container{
   display: flex;
   height: 100vh;
@@ -17,7 +25,7 @@ body {
 
 .todo-left-section{
   width: 20%;
-  background-color: rgb(248,249,252);
+  background-color: var(--primary-bg-color);
   height: 100%;
   padding: 20px;
 }
@@ -54,18 +62,22 @@ body {
 }
 
 .added-project-section button, .left-container-fix button,.add-new-project button{
+  align-items: center;
   padding: 7px;
   margin-bottom: 5px;
-  background-color: rgb(248,249,252);
+  background-color: var(--primary-bg-color);
   border: none;
   font-size: 1rem;
   border-radius: 5px;
-  color: rgb(50, 50, 50);
+  color: var(--primary-txt-color);
+}
+.add-new-project button{
+  padding: 4px;
 }
 
 .added-project-section button:hover,
 .left-container-fix button:hover ,.add-new-project button:hover{
-  background-color: rgb(238,238,238);
+  background-color: var(--primary-hover-color);
   cursor: pointer;
 }
 
@@ -83,9 +95,17 @@ body {
 
 }
 
+.add-project-btn i ,.add-task-btn i{
+  opacity: 0.3;
+}
+
+.add-project-btn:hover i ,.add-task-btn:hover i{
+  opacity: 1;
+}
+
 .add-new-project button{
   font-size: 1.4rem;
-  color: rgb(100, 100, 100);
+  color: var(--secondary-txt-color)
 }
 
 .add-new-project{
@@ -102,11 +122,20 @@ body {
   display: flex;
   gap: 10px;
 }
+.added-project-btn .project-option {
+  opacity: 0;
+}
+
+.added-project-btn:hover .project-option {
+  opacity: 1;
+}
+
 
 
 /* todo-right-section */
 
 .todo-right-section{
+  background-color: var(--secondary-bg-color);
   width: 80%;
   padding: 80px 300px 10px 150px;
 }
@@ -121,10 +150,14 @@ body {
 .tasks-list-data{
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
 }
 
 .project-task-name{
+  cursor: pointer;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: var(--primary-txt-color);
   display: flex;
   justify-content: space-between;
   font-size: 1rem;
@@ -145,21 +178,32 @@ body {
   gap: 10px;
 }
 .add-project-task-btn button{
+  align-items: center;
   padding: 3px;
   margin-top: 15px;
   width: 100%;
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
-  background-color: rgb(248,249,252);
+  background-color: var(--secondary-bg-color);
   border: none;
   font-size: 1.4rem;
   border-radius: 5px;
-  color: rgba(50, 50, 50, 0.758);
+  color: var(--secondary-txt-color);
 }
 
 .add-project-task-btn button:hover{
-
-  background-color: rgb(238,238,238);
+  background-color: var(--primary-hover-color);
   cursor: pointer;
 }
+
+.project-task-name .task-edit-btn {
+  opacity: 0;
+}
+.project-task-name:hover .task-edit-btn {
+  cursor: pointer;
+  opacity: 1;;
+}
+
+
+
