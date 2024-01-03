@@ -14,6 +14,8 @@ body {
   --primary-txt-color:rgb(50, 50, 50);
   --secondary-txt-color:rgb(100, 100, 100);
   --primary-hover-color:rgb(238,238,238);
+  --add-btn-color:rgba(7, 210, 7, 0.205);
+  --cancel-btn-color:rgba(210, 7, 7, 0.205);
 }
 
 .main-container{
@@ -129,6 +131,61 @@ body {
 
 .added-project-btn:hover .project-option {
   opacity: 1;
+}
+
+/* add-Project form  */
+.add-project-form {
+  display: none;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--primary-bg-color);
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  border-radius: 5px;
+}
+
+.add-project-form label {
+  margin-top: 20px;
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.add-project-form input {
+  font-size: 1rem;
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #ccc; 
+}
+
+.add-project-form button {
+  /* background-color: var(--add-btn-color); */
+  color: var(--primary-txt-color);
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+button.add-btn{
+  background-color: var(--add-btn-color);
+}
+button.cancel-btn{
+  background-color: var(--cancel-btn-color);
+}
+
+
+
+.add-project-form button:hover {
+  background-color: var(--primary-hover-color);
 }
 
 

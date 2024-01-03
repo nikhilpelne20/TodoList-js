@@ -24,9 +24,30 @@ export default class Dom {
         // Storage.renameTask("Jerry","moon","Earth")
         // Storage.renameTask("Jerry","sun","nika")
         Storage.deleteTask("Tom","starBoy")
-        
+    
+        // Dom.loadProjects()
+        Dom.openProject()
+    }
 
-        Dom.loadProjects()
+    static openProject(){
+        document.querySelector('.add-project-btn').addEventListener('click', toggleForm);
+
+        function toggleForm() {
+            var projectForm = document.getElementById('projectForm');
+            projectForm.style.display = (projectForm.style.display === 'block') ? 'none' : 'block';
+        }
+        document.querySelector('.add-btn').addEventListener('click', addProject)
+        function addProject() {
+            console.log('Project added');
+            cancelForm();
+        }
+
+        document.querySelector('.cancel-btn').addEventListener('click',cancelForm)
+        
+        function cancelForm() {
+            document.getElementById('projectForm').style.display = 'none';
+            console.log("cancel form")
+        }
     }
 
     static loadProjects() {
