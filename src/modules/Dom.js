@@ -30,26 +30,40 @@ export default class Dom {
         Dom.openTask()
     }
 
-    static openProject(){
-        document.querySelector('.add-project-btn').addEventListener('click', toggleForm);
-
+    static openProject() {
+        // Get references to elements
+        const addProjectBtn = document.querySelector('.add-project-btn');
+        const projectForm = document.getElementById('projectForm');
+        const overlay = document.getElementById('overlay');
+        const addBtn = document.querySelector('.add-btn');
+        const cancelBtn = document.querySelector('.cancel-btn');
+    
+        // Event listener for opening the form
+        addProjectBtn.addEventListener('click', toggleForm);
+    
+        // Event listener for adding a project
+        addBtn.addEventListener('click', addProject);
+    
+        // Event listener for canceling the form
+        cancelBtn.addEventListener('click', cancelForm);
+    
         function toggleForm() {
-            var projectForm = document.getElementById('projectForm');
             projectForm.style.display = (projectForm.style.display === 'block') ? 'none' : 'block';
+            overlay.style.display = (overlay.style.display === 'block') ? 'none' : 'block';
         }
-        document.querySelector('.add-btn').addEventListener('click', addProject)
+    
         function addProject() {
             console.log('Project added');
             cancelForm();
         }
-
-        document.querySelector('.cancel-btn').addEventListener('click',cancelForm)
-        
+    
         function cancelForm() {
-            document.getElementById('projectForm').style.display = 'none';
-            console.log("cancel form")
+            projectForm.style.display = 'none';
+            overlay.style.display = 'none';
+            console.log('Cancel form');
         }
     }
+    
     static openTask(){
         document.querySelector('.add-task-btn').addEventListener('click', toggleForm);
 
