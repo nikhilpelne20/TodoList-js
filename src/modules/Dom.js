@@ -31,18 +31,21 @@ export default class Dom {
         // Dom.loadProjects()
         Dom.initAddProjectBtn()
         Dom.loadProjects()
+        Dom.initProjectBtn()
     }
 
     static loadProjects(){
         Storage.getTodoList()
         .getProjects()
         .forEach((project)=> Dom.createProject(project.name))
+
+        Dom.initProjectBtn()
     }
 
     static createProject(name){
         const userProject = document.getElementById("added-project-section")
         userProject.innerHTML+=`
-        <button class="added-project-btn">
+        <button class="added-project-btn" data-project-btn>
                             <div class="project-name">
                                 <i class="fa-solid fa-hashtag"></i>
                                 <span>${name}</span>  
@@ -90,7 +93,52 @@ export default class Dom {
         const projectInput = document.getElementById('projectName').value = '';
     }
 
-   
+    static initProjectBtn(){
+        const inboxProjectBtn = document.getElementById('project-inbox-btn');
+        const todayProjectBtn = document.getElementById('project-today-btn');
+        const weekProjectBtn  = document.getElementById('project-week-btn');
+
+        const allProjectBtn = document.querySelectorAll('[data-project-btn]');
+
+        inboxProjectBtn.addEventListener('click', Dom.openInbox)
+        todayProjectBtn.addEventListener('click', Dom.openToday)
+        weekProjectBtn.addEventListener('click', Dom.openWeek);
+
+        allProjectBtn.forEach((projectBtn)=> 
+        projectBtn.addEventListener('click', Dom.handleProject))
+    }
+
+    static openInbox(){
+        console.log("Open Inbox clicked")
+    }
+    static openToday(){
+        console.log("Open Today clicked")
+    }
+
+    static openWeek(){
+        console.log("Open Week clicked")
+    }
+
+    static handleProject(e){
+        // console.log(e.target.innerHTML)
+        const projectName = this.children[0].children[1].innerText;
+
+        if(e.target.classList.contains('fa-trash-can')){
+            Dom.deleteProject(projectName)
+        }
+    }
+
+    static clearProject(){
+        const userProject = document.getElementById("added-project-section")
+        userProject.innerText=""
+    }
+
+    static deleteProject(projectName){
+        Storage.deleteProject(projectName)
+        Dom.clearProject()
+        Dom.loadProjects()
+    }
+
 
     
     // static openTask(){
