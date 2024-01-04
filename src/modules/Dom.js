@@ -126,7 +126,46 @@ export default class Dom {
         if(e.target.classList.contains('fa-trash-can')){
             Dom.deleteProject(projectName)
         }
+        else if(e.target.classList.contains('fa-pen-to-square')){
+            Dom.renameProjectName(projectName)
+        }
     }
+
+    static renameProjectName(projectName){
+        Dom.openRenamePopupForm(projectName)
+
+        const addRenameProjectBtn = document.getElementById('add-rename-btn')
+        const cancelRenameProjectBtn = document.getElementById('close-rename-btn')
+
+        addRenameProjectBtn.addEventListener('click', Dom.addRenameProject)
+        cancelRenameProjectBtn.addEventListener('click',Dom.closeRenamePopupForm)
+    }
+
+    static openRenamePopupForm(projectName){
+        const addRenameProjectForm = document.getElementById('add-renameProjectForm');
+        const addProjectBtnOverlay = document.getElementById('add-project-overlay')
+        const projectInput = document.getElementById('renameProjectName');
+        projectInput.value = projectName
+
+        addRenameProjectForm.style.display = (addRenameProjectForm.style.display === 'block') ? 'none' : 'block';
+        addProjectBtnOverlay.style.display = (addProjectBtnOverlay.style.display === 'block') ? 'none' : 'block';
+    }
+
+    static addRenameProject(){
+        const projectRename = this.previousElementSibling.value
+    }
+    static closeRenamePopupForm(){
+        const addRenameProjectForm = document.getElementById('add-renameProjectForm');
+        const addProjectBtnOverlay = document.getElementById('add-project-overlay')
+        const projectInput = document.getElementById('renameProjectName');
+        
+
+        addRenameProjectForm.style.display = (addRenameProjectForm.style.display === 'block') ? 'none' : 'block';
+        addProjectBtnOverlay.style.display = (addProjectBtnOverlay.style.display === 'block') ? 'none' : 'block';
+        projectInput.value = ''
+    }
+
+
 
     static clearProject(){
         const userProject = document.getElementById("added-project-section")
