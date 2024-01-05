@@ -5,14 +5,14 @@ import Task from "./Task";
 
 export default class Dom {
     static loadHome() {
-        Storage.addProject(new Project("Tom"));
-        Storage.addProject(new Project("Jerry"));
-        Storage.addTask("Jerry", new Task("sun"));
-        Storage.addTask("Jerry", new Task("moon"));
-        Storage.addTask("Jerry", new Task("stars"));
-        Storage.addTask("Tom", new Task("pirateKing"))
-        Storage.addTask("Tom", new Task("pirateHunter"));
-        Storage.addTask("Tom", new Task("starBoy"));
+        // Storage.addProject(new Project("Tom"));
+        // Storage.addProject(new Project("Jerry"));
+        // Storage.addTask("Jerry", new Task("sun"));
+        // Storage.addTask("Jerry", new Task("moon"));
+        // Storage.addTask("Jerry", new Task("stars"));
+        // Storage.addTask("Tom", new Task("pirateKing"))
+        // Storage.addTask("Tom", new Task("pirateHunter"));
+        // Storage.addTask("Tom", new Task("starBoy"));
 
         // if(Storage.getTodoList().contains("Tom")){
         //     Storage.renameProject("Tom","Sam")
@@ -23,7 +23,7 @@ export default class Dom {
         // Storage.deleteProject("Tom")
         // Storage.renameTask("Jerry","moon","Earth")
         // Storage.renameTask("Jerry","sun","nika")
-        Storage.deleteTask("Tom","starBoy")
+        // Storage.deleteTask("Tom","starBoy")
     
         // Dom.loadProjects()
         // Dom.openProject()
@@ -46,7 +46,7 @@ export default class Dom {
         const userProject = document.getElementById("added-project-section")
         userProject.innerHTML+=`
         <button class="added-project-btn" data-project-btn>
-                            <div class="project-name">
+                            <div class="project-name" id="project-name">
                                 <i class="fa-solid fa-hashtag"></i>
                                 <span>${name}</span>  
                             </div>
@@ -56,6 +56,7 @@ export default class Dom {
                             </div>
         </button>
         `
+        Dom.initProjectBtn()
     }
 
     static initAddProjectBtn(){
@@ -79,6 +80,10 @@ export default class Dom {
     static addProject(){
         const projectInput = document.getElementById('projectName');
         let projectValue = projectInput.value
+        if(projectValue === "" || Storage.getTodoList().contains(projectValue)){
+            Dom.closePopupForm()
+            return;
+        }
         Storage.addProject(new Project(projectValue))
         Dom.createProject(projectValue)
         Dom.closePopupForm()
@@ -126,45 +131,7 @@ export default class Dom {
         if(e.target.classList.contains('fa-trash-can')){
             Dom.deleteProject(projectName)
         }
-        else if(e.target.classList.contains('fa-pen-to-square')){
-            Dom.renameProjectName(projectName)
-        }
     }
-
-    static renameProjectName(projectName){
-        Dom.openRenamePopupForm(projectName)
-
-        const addRenameProjectBtn = document.getElementById('add-rename-btn')
-        const cancelRenameProjectBtn = document.getElementById('close-rename-btn')
-
-        addRenameProjectBtn.addEventListener('click', Dom.addRenameProject)
-        cancelRenameProjectBtn.addEventListener('click',Dom.closeRenamePopupForm)
-    }
-
-    static openRenamePopupForm(projectName){
-        const addRenameProjectForm = document.getElementById('add-renameProjectForm');
-        const addProjectBtnOverlay = document.getElementById('add-project-overlay')
-        const projectInput = document.getElementById('renameProjectName');
-        projectInput.value = projectName
-
-        addRenameProjectForm.style.display = (addRenameProjectForm.style.display === 'block') ? 'none' : 'block';
-        addProjectBtnOverlay.style.display = (addProjectBtnOverlay.style.display === 'block') ? 'none' : 'block';
-    }
-
-    static addRenameProject(){
-        const projectRename = this.previousElementSibling.value
-    }
-    static closeRenamePopupForm(){
-        const addRenameProjectForm = document.getElementById('add-renameProjectForm');
-        const addProjectBtnOverlay = document.getElementById('add-project-overlay')
-        const projectInput = document.getElementById('renameProjectName');
-        
-
-        addRenameProjectForm.style.display = (addRenameProjectForm.style.display === 'block') ? 'none' : 'block';
-        addProjectBtnOverlay.style.display = (addProjectBtnOverlay.style.display === 'block') ? 'none' : 'block';
-        projectInput.value = ''
-    }
-
 
 
     static clearProject(){
