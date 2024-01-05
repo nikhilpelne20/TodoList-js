@@ -42,6 +42,13 @@ export default class Dom {
         Dom.initProjectBtn()
     }
 
+    static loadTasks(projectName){
+        Storage.getTodoList()
+        .getProject(projectName)
+        .getTasks()
+        .forEach((task)=> Dom.createTasks(task.name,task.dueDate))
+    }
+
     static createProject(name){
         const userProject = document.getElementById("added-project-section")
         userProject.innerHTML+=`
@@ -125,13 +132,79 @@ export default class Dom {
     }
 
     static handleProject(e){
-        // console.log(e.target.innerHTML)
         const projectName = this.children[0].children[1].innerText;
 
         if(e.target.classList.contains('fa-trash-can')){
             Dom.deleteProject(projectName)
         }
+        Dom.openProject(projectName,this)
     }
+
+    static openProject(projectName,button){
+        // console.log("Load Tasks",projectName,button)
+        Dom.loadProjectContent(projectName)
+
+    }
+
+    static createTasks(task,dueDate){
+        const taskList = document.getElementById('task-list-data')
+        taskList.innerHTML +=`
+        <div class="project-task-name">
+                                <div class="task-name">
+                                    <i class="fa-solid fa-o"></i>
+                                    <span> ${task}</span>
+                                </div>
+                                <div class="task-date">
+                                    <span>${dueDate}</span>
+                                    <div class="task-edit-btn">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                    <i class="fa-regular fa-trash-can"></i>
+                                    </div>
+                                </div>
+        </div>
+        `
+    }
+
+
+    static loadProjectContent(projectName){
+
+        const projectContent = document.getElementById('task-list-section')
+        projectContent.innerHTML=`
+        <div class="project-name-head">
+                        <h3>${projectName}</h3>
+                    </div>
+                    <div class="project-tasks-list">
+                        <div class="tasks-list-data" id="task-list-data">
+                        </div> 
+                        <div class="add-project-task-btn">
+                            <button class="add-task-btn">
+                                <i class="fa-regular fa-square-plus"></i>
+                                <span>AddTask</span>
+                            </button>
+                        </div>
+                            <div class="add-task-form" id="taskForm">
+                                <form action="">
+                                    <label for="projectName">Task Name</label>
+                                    <input type="text" id="projectName" name="projectName">
+                                    <div class="task-date-task-btn">
+                                        <div class="task-dueDate">
+                                            <label for="dueDate">DueDate</label>
+                                            <input type="date" id="duedate" name="dueDate">
+                                        </div>
+                                        <div class="task-btn">
+                                            <button type="button" class="add-taskForm-btn">Add</button>
+                                            <button type="button" class="cancel-taskForm-btn">Cancel</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                    </div>
+        `
+        Dom.loadTasks(projectName)
+        
+    }
+
+   
 
 
     static clearProject(){
@@ -146,27 +219,29 @@ export default class Dom {
     }
 
 
+
+
     
-    // static openTask(){
-    //     document.querySelector('.add-task-btn').addEventListener('click', toggleForm);
+    static openTask(){
+        document.querySelector('.add-task-btn').addEventListener('click', toggleForm);
 
-    //     function toggleForm() {
-    //         var projectForm = document.getElementById('taskForm');
-    //         projectForm.style.display = (projectForm.style.display === 'block') ? 'none' : 'block';
-    //     }
-    //     document.querySelector('.add-taskForm-btn').addEventListener('click', addProject)
-    //     function addProject() {
-    //         console.log('Project added');
-    //         cancelForm();
-    //     }
+        function toggleForm() {
+            var projectForm = document.getElementById('taskForm');
+            projectForm.style.display = (projectForm.style.display === 'block') ? 'none' : 'block';
+        }
+        document.querySelector('.add-taskForm-btn').addEventListener('click', addProject)
+        function addProject() {
+            console.log('Project added');
+            cancelForm();
+        }
 
-    //     document.querySelector('.cancel-taskForm-btn').addEventListener('click',cancelForm)
+        document.querySelector('.cancel-taskForm-btn').addEventListener('click',cancelForm)
         
-    //     function cancelForm() {
-    //         document.getElementById('taskForm').style.display = 'none';
-    //         console.log("cancel form")
-    //     }
-    // }
+        function cancelForm() {
+            document.getElementById('taskForm').style.display = 'none';
+            console.log("cancel form")
+        }
+    }
 
   
 
@@ -183,12 +258,7 @@ export default class Dom {
     //     Dom.loadTasks(projectName)
     // }
 
-    // static loadTasks(projectName){
-    //     Storage.getTodoList()
-    //     .getProject(projectName)
-    //     .getTasks()
-    //     .forEach((task)=> Dom.createTasks(task.name,task.dueDate))
-    // }
+  
 
     // static createTasks(name,dueDate){
     //     const taskList = document.getElementById("task-list")
