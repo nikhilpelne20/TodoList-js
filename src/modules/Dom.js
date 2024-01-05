@@ -47,6 +47,7 @@ export default class Dom {
         .getProject(projectName)
         .getTasks()
         .forEach((task)=> Dom.createTasks(task.name,task.dueDate))
+        Dom.initAddTaskBtn()
     }
 
     static createProject(name){
@@ -149,7 +150,7 @@ export default class Dom {
     static createTasks(task,dueDate){
         const taskList = document.getElementById('task-list-data')
         taskList.innerHTML +=`
-        <div class="project-task-name">
+        <button class="project-task-name" data-task-button>
                                 <div class="task-name">
                                     <i class="fa-solid fa-o"></i>
                                     <span> ${task}</span>
@@ -161,7 +162,7 @@ export default class Dom {
                                     <i class="fa-regular fa-trash-can"></i>
                                     </div>
                                 </div>
-        </div>
+        </button>
         `
     }
 
@@ -170,14 +171,14 @@ export default class Dom {
 
         const projectContent = document.getElementById('task-list-section')
         projectContent.innerHTML=`
-        <div class="project-name-head">
+        <div class="project-name-head" id="project-name-head">
                         <h3>${projectName}</h3>
                     </div>
                     <div class="project-tasks-list">
                         <div class="tasks-list-data" id="task-list-data">
                         </div> 
                         <div class="add-project-task-btn">
-                            <button class="add-task-btn">
+                            <button class="add-task-btn" id="add-task-btn">
                                 <i class="fa-regular fa-square-plus"></i>
                                 <span>AddTask</span>
                             </button>
@@ -185,15 +186,15 @@ export default class Dom {
                             <div class="add-task-form" id="taskForm">
                                 <form action="">
                                     <label for="projectName">Task Name</label>
-                                    <input type="text" id="projectName" name="projectName">
+                                    <input type="text" id="input-add-task-popup" name="projectName">
                                     <div class="task-date-task-btn">
                                         <div class="task-dueDate">
                                             <label for="dueDate">DueDate</label>
                                             <input type="date" id="duedate" name="dueDate">
                                         </div>
                                         <div class="task-btn">
-                                            <button type="button" class="add-taskForm-btn">Add</button>
-                                            <button type="button" class="cancel-taskForm-btn">Cancel</button>
+                                            <button type="button" class="add-taskForm-btn" id="add-taskForm-btn" >Add</button>
+                                            <button type="button" class="cancel-taskForm-btn" id="cancel-taskForm-btn">Cancel</button>
                                         </div>
                                     </div>
                                 </form>
@@ -212,65 +213,60 @@ export default class Dom {
         userProject.innerText=""
     }
 
+    //not working check later
+    static clearTasks(){
+        const projectContent = document.getElementById('task-list-section')
+        projectContent.innerText=""
+    }
+
     static deleteProject(projectName){
         Storage.deleteProject(projectName)
         Dom.clearProject()
+        Dom.clearTasks()
         Dom.loadProjects()
     }
 
-
-
-
-    
-    static openTask(){
-        document.querySelector('.add-task-btn').addEventListener('click', toggleForm);
-
-        function toggleForm() {
-            var projectForm = document.getElementById('taskForm');
-            projectForm.style.display = (projectForm.style.display === 'block') ? 'none' : 'block';
-        }
-        document.querySelector('.add-taskForm-btn').addEventListener('click', addProject)
-        function addProject() {
-            console.log('Project added');
-            cancelForm();
-        }
-
-        document.querySelector('.cancel-taskForm-btn').addEventListener('click',cancelForm)
+    static initAddTaskBtn(){
+        const addTaskBtn = document.getElementById("add-task-btn")
+        const addPopupTaskBtn = document.getElementById("add-taskForm-btn")
+        const cancelPopupTaskBtn = document.getElementById("cancel-taskForm-btn")
+        const taskButton = document.querySelectorAll("[data-task-button]")
         
-        function cancelForm() {
-            document.getElementById('taskForm').style.display = 'none';
-            console.log("cancel form")
-        }
+    
+        addTaskBtn.addEventListener('click', Dom.openTaskPopup)
+        addPopupTaskBtn.addEventListener('click', Dom.addProjectTask)
+        cancelPopupTaskBtn.addEventListener('click',Dom.closeTaskPopup)
+        taskButton.forEach((taskBtn)=>
+        taskBtn.addEventListener('click',Dom.handleTask))
+    }
+    static handleTask(e){
+        // console.log(e)
     }
 
-  
+    static openTaskPopup(){
+        const projectForm = document.getElementById('taskForm');
+        projectForm.style.display = (projectForm.style.display === 'block') ? 'none' : 'block';
 
-    // static handleProject(e) {
-    //     const projectName =this.children[0].innerHTML 
-    //     Dom.loadProjectContent(projectName)
-    // }
+    }
 
-    // static loadProjectContent(projectName){
-    //     const projectPreview = document.getElementById("project-task-list")
-    //     projectPreview.innerHTML =`
-    //     <h1>${projectName}</h1>
-    //     <div class="task-list" id="task-list"></div>`
-    //     Dom.loadTasks(projectName)
-    // }
+    static addProjectTask(){
+        const projectName = document.getElementById("project-name-head").children[0].textContent
+        const addTaskInput = document.getElementById("input-add-task-popup").value
+        const presentNot = Storage.getTodoList().getProject(projectName).contains(addTaskInput);
+        console.log(presentNot)
+        if(addTaskInput === "" || presentNot){
+            Dom.closeTaskPopup()
+            return;
+        }
+        Storage.addTask(projectName, new Task(addTaskInput));
+        Dom.createTasks(addTaskInput, "no date")
+        Dom.closeTaskPopup()
+    }
 
-  
-
-    // static createTasks(name,dueDate){
-    //     const taskList = document.getElementById("task-list")
-    //     taskList.innerHTML+=`
-    //     <div class="taskComplete">
-    //     <div class="task-name">
-    //         <p>${name}</p>
-    //     </div>
-    //     <div class="task-date">
-    //        <p>${dueDate} </p>
-    //     </div>
-    //     </div>`
-    // }
+    static closeTaskPopup(){
+        const projectForm = document.getElementById('taskForm').style.display = 'none';
+        const addTaskInput = document.getElementById("input-add-task-popup")
+        addTaskInput.value=""
+    }
 
 }

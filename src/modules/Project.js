@@ -22,12 +22,12 @@ export default class Project {
 
 
     addTask(task) {
-        if(this.tasks.some((existingTask)=> existingTask.getName() === task.name)) return;
+        if(this.tasks.some((existingTask)=> existingTask.getName() === task)) return;
         this.tasks.push(task);
     }
 
     contains(task){
-        return this.tasks.some((existingTask)=> existingTask.getName() === task.name)
+        return this.tasks.some((existingTask)=> existingTask.getName() === task)
     }
 
     deleteTask(taskName){
