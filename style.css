@@ -219,8 +219,20 @@ button.cancel-btn{
 .tasks-list-data{
   display: flex;
   flex-direction: column;
-  gap: 5px;
 }
+
+.tasks-list-data button{
+  background-color: var(--secondary-bg-color);
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+}
+
+.tasks-list-data button:hover{
+  background-color: var(--primary-hover-color);
+}
+
+
 
 .project-task-name{
   cursor: pointer;
