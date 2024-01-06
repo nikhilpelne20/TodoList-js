@@ -203,7 +203,7 @@ button.cancel-btn{
 
 /* todo-right-section */
 
-.todo-right-section{
+.task-list-section{
   background-color: var(--secondary-bg-color);
   width: 80%;
   padding: 80px 300px 10px 150px;
