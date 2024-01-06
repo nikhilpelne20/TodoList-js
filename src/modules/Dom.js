@@ -123,6 +123,7 @@ export default class Dom {
 
     static openInbox(){
         console.log("Open Inbox clicked")
+        Dom.loadProjectContent("Inbox")
     }
     static openToday(){
         console.log("Open Today clicked")
@@ -136,13 +137,17 @@ export default class Dom {
         const projectName = this.children[0].children[1].innerText;
 
         if(e.target.classList.contains('fa-trash-can')){
-            Dom.deleteProject(projectName)
+            Dom.deleteProject(projectName,this)
+            return;
         }
         Dom.openProject(projectName,this)
     }
 
     static openProject(projectName,button){
         // console.log("Load Tasks",projectName,button)
+        console.log(button)
+        button.classList.add("active")
+
         Dom.loadProjectContent(projectName)
 
     }
@@ -220,10 +225,16 @@ export default class Dom {
         projectContent.innerHTML=""
     }
 
-    static deleteProject(projectName){
-        Storage.deleteProject(projectName)
+    static clearTaskPage(){
+        const projectContent = document.getElementById('task-list-section')
+        projectContent.innerHTML=""
+    }
+
+    static deleteProject(projectName,button){
+        // console.log(button)
         Dom.clearProject()
-        Dom.clearTasks()
+        Dom.clearTaskPage()
+        Storage.deleteProject(projectName)
         Dom.loadProjects()
     }
 
