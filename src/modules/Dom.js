@@ -164,6 +164,7 @@ export default class Dom {
                                 </div>
         </button>
         `
+        Dom.initAddTaskBtn()
     }
 
 
@@ -172,7 +173,7 @@ export default class Dom {
         const projectContent = document.getElementById('task-list-section')
         projectContent.innerHTML=`
         <div class="project-name-head" id="project-name-head">
-                        <h3>${projectName}</h3>
+                        <h3 id="project-head-title">${projectName}</h3>
                     </div>
                     <div class="project-tasks-list">
                         <div class="tasks-list-data" id="task-list-data">
@@ -215,8 +216,8 @@ export default class Dom {
 
     //not working check later
     static clearTasks(){
-        const projectContent = document.getElementById('task-list-section')
-        projectContent.innerText=""
+        const projectContent = document.getElementById('task-list-data')
+        projectContent.innerHTML=""
     }
 
     static deleteProject(projectName){
@@ -240,7 +241,10 @@ export default class Dom {
         taskBtn.addEventListener('click',Dom.handleTask))
     }
     static handleTask(e){
-        // console.log(e)
+        const projectName = document.getElementById("project-head-title").innerText
+        if(e.target.classList.contains("fa-trash-can")){
+            Dom.deleteTask(projectName,this)
+        }
     }
 
     static openTaskPopup(){
@@ -267,6 +271,13 @@ export default class Dom {
         const projectForm = document.getElementById('taskForm').style.display = 'none';
         const addTaskInput = document.getElementById("input-add-task-popup")
         addTaskInput.value=""
+    }
+
+    static deleteTask(projectName,button){
+        const taskName = button.children[0].children[1].innerText
+        Storage.deleteTask(projectName,taskName)
+        Dom.clearTasks()
+        Dom.loadTasks(projectName)
     }
 
 }
