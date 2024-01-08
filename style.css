@@ -177,7 +177,6 @@ body {
 }
 
 .add-project-form button {
-  /* background-color: var(--add-btn-color); */
   color: var(--primary-txt-color);
   border: none;
   padding: 5px 10px;
@@ -233,8 +232,11 @@ button.cancel-btn{
 }
 
 
+button.project-task-name.active{
+  display: none;
+}
 
-.project-task-name{
+button.project-task-name{
   cursor: pointer;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -278,10 +280,10 @@ button.cancel-btn{
   cursor: pointer;
 }
 
-.project-task-name .task-edit-btn {
+button.project-task-name .task-edit-btn {
   opacity: 0;
 }
-.project-task-name:hover .task-edit-btn {
+button.project-task-name:hover .task-edit-btn {
   cursor: pointer;
   opacity: 1;;
 }
@@ -347,6 +349,14 @@ button.cancel-taskForm-btn{
 }
 
 
+button.project-task-name .edit-task-form {
+  width: 100%;
+}
+
+button.project-task-name .edit-task-form input,
+button.project-task-name .edit-task-form button {
+  margin-top: 5px;
+}
 
 
 
