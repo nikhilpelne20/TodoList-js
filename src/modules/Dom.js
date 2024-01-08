@@ -37,7 +37,11 @@ export default class Dom {
     static loadProjects(){
         Storage.getTodoList()
         .getProjects()
-        .forEach((project)=> Dom.createProject(project.name))
+        .forEach((project)=> {
+            if(project.name !== "Inbox" && project.name !== "Today" && project.name !== "Upcoming"){
+                Dom.createProject(project.name)
+            }
+        } );
 
         Dom.initProjectBtn()
     }
@@ -122,14 +126,15 @@ export default class Dom {
     }
 
     static openInbox(){
-        console.log("Open Inbox clicked")
-        Dom.loadProjectContent("Inbox")
+        Dom.openProject("Inbox",this)
     }
     static openToday(){
+        Dom.openProject("Today",this)
         console.log("Open Today clicked")
     }
 
     static openWeek(){
+        Dom.openProject("Upcoming",this)
         console.log("Open Week clicked")
     }
 
@@ -140,13 +145,14 @@ export default class Dom {
             Dom.deleteProject(projectName,this)
             return;
         }
+        
         Dom.openProject(projectName,this)
     }
 
     static openProject(projectName,button){
         // console.log("Load Tasks",projectName,button)
-        console.log(button)
         button.classList.add("active")
+        console.log(button)
 
         Dom.loadProjectContent(projectName)
 
@@ -166,8 +172,9 @@ export default class Dom {
                                     <i class="fa-regular fa-pen-to-square"></i>
                                     <i class="fa-regular fa-trash-can"></i>
                                     </div>
-                                </div>
+                                </div>             
         </button>
+        
         `
         Dom.initAddTaskBtn()
     }
@@ -179,7 +186,7 @@ export default class Dom {
         projectContent.innerHTML=`
         <div class="project-name-head" id="project-name-head">
                         <h3 id="project-head-title">${projectName}</h3>
-                    </div>
+        </div>
                     <div class="project-tasks-list">
                         <div class="tasks-list-data" id="task-list-data">
                         </div> 
@@ -231,11 +238,11 @@ export default class Dom {
     }
 
     static deleteProject(projectName,button){
-        // console.log(button)
         Dom.clearProject()
         Dom.clearTaskPage()
         Storage.deleteProject(projectName)
         Dom.loadProjects()
+        Dom.openInbox()
     }
 
     static initAddTaskBtn(){
@@ -255,7 +262,17 @@ export default class Dom {
         const projectName = document.getElementById("project-head-title").innerText
         if(e.target.classList.contains("fa-trash-can")){
             Dom.deleteTask(projectName,this)
+        }else if(e.target.classList.contains('fa-pen-to-square')){
+            Dom.editTask(projectName,this)
         }
+    }
+
+    static editTask(projectName,button){
+        console.log(button)
+    }
+
+    static openTasksEditForm(button){
+        console.log(button)
     }
 
     static openTaskPopup(){
@@ -268,7 +285,6 @@ export default class Dom {
         const projectName = document.getElementById("project-name-head").children[0].textContent
         const addTaskInput = document.getElementById("input-add-task-popup").value
         const presentNot = Storage.getTodoList().getProject(projectName).contains(addTaskInput);
-        console.log(presentNot)
         if(addTaskInput === "" || presentNot){
             Dom.closeTaskPopup()
             return;
