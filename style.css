@@ -97,6 +97,25 @@ body {
 
 }
 
+.add-task-btn{
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 1.4rem;
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--primary-bg-color);
+}
+
+.add-task-btn:hover{
+  background-color: var(--primary-hover-color);
+}
+
+
 .add-project-btn i ,.add-task-btn i{
   opacity: 0.3;
 }
@@ -207,13 +226,13 @@ button.cancel-btn{
   width: 80%;
   padding: 80px 300px 10px 150px;
 }
-.project-name-head{
+/* .project-name-head{
   margin-bottom: 30px;
 }
 .project-name-head h3{
   font-size: 2rem;
   font-weight: 500;
-}
+} */
 
 .tasks-list-data{
   display: flex;
