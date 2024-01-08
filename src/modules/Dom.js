@@ -184,18 +184,15 @@ export default class Dom {
 
         const projectContent = document.getElementById('task-list-section')
         projectContent.innerHTML=`
-        <div class="project-name-head" id="project-name-head">
-                        <h3 id="project-head-title">${projectName}</h3>
-        </div>
-                    <div class="project-tasks-list">
-                        <div class="tasks-list-data" id="task-list-data">
-                        </div> 
-                        <div class="add-project-task-btn">
-                            <button class="add-task-btn" id="add-task-btn">
+                    <h3 id="project-head-title">${projectName}</h3>
+                        <div class="tasks-list-data" id="task-list-data"></div> `;
+                        
+                    if(projectName !== "Today" && projectName !=="Upcoming"){
+                        projectContent.innerHTML +=`
+                        <button class="add-task-btn" id="add-task-btn">
                                 <i class="fa-regular fa-square-plus"></i>
                                 <span>AddTask</span>
-                            </button>
-                        </div>
+                        </button>
                             <div class="add-task-form" id="taskForm">
                                 <form action="">
                                     <label for="projectName">Task Name</label>
@@ -203,7 +200,7 @@ export default class Dom {
                                     <div class="task-date-task-btn">
                                         <div class="task-dueDate">
                                             <label for="dueDate">DueDate</label>
-                                            <input type="date" id="duedate" name="dueDate">
+                                            <input type="date" id="dueDate" name="dueDate">
                                         </div>
                                         <div class="task-btn">
                                             <button type="button" class="add-taskForm-btn" id="add-taskForm-btn" >Add</button>
@@ -211,11 +208,9 @@ export default class Dom {
                                         </div>
                                     </div>
                                 </form>
-                            </div>
-                    </div>
-        `
+                            </div>`
+                    }
         Dom.loadTasks(projectName)
-        
     }
 
    
