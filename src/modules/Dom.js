@@ -168,11 +168,12 @@ export default class Dom {
                                 <div class="task-name">
                                     <i class="fa-solid fa-o"></i>
                                     <span> ${task}</span>
+                                    <input type="text" class="input-task-name" data-input-task-name>
                                 </div>
                                 <div class="task-date">
                                     <span>${dueDate}</span>
                                     <div class="task-edit-btn">
-                                    <i class="fa-regular fa-pen-to-square"></i>
+                                    <input type="date" class="input-due-date" data-input-due-date>
                                     <i class="fa-regular fa-trash-can"></i>
                                     </div>
                                 </div>             
