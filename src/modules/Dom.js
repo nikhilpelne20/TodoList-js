@@ -167,7 +167,7 @@ export default class Dom {
         <button class="project-task-name" data-task-button>
                                 <div class="task-name">
                                     <i class="fa-solid fa-o"></i>
-                                    <span class="task-content"> ${task}</span>
+                                    <span class="task-content">${task}</span>
                                     <input type="text" class="input-task-name" data-input-task-name>
                                 </div>
                                 <div class="task-date">
@@ -264,13 +264,13 @@ export default class Dom {
         const taskDateButton = document.querySelectorAll("[data-input-due-date]")
 
 
-
-        taskDateButton.forEach((inputVal)=>
+        taskButton.forEach((taskBtn)=>
+        taskBtn.addEventListener('click',Dom.handleTask))
+        taskInputButton.forEach((inputVal)=>
         inputVal.addEventListener("keypress",Dom.renameTask))
         taskDateButton.forEach((dueDateInput)=> 
         dueDateInput.addEventListener('change',Dom.setTaskDate))
-        taskButton.forEach((taskBtn)=>
-        taskBtn.addEventListener('click',Dom.handleTask))
+        
     }
     static handleTask(e){
         const projectName = document.getElementById("project-head-title").innerText
@@ -288,7 +288,23 @@ export default class Dom {
     }
 
     static renameTask(e){
-        console.log(e)
+        if(e.key !== "Enter")return;
+
+        const projectName = document.getElementById("project-head-title").innerText
+        const taskName = this.parentNode.children[1].innerText
+        console.log(taskName)
+        const newTaskName = this.value
+
+        if(newTaskName ==="" || Storage.getTodoList().getProject(projectName).contains(newTaskName)){
+            this.value="";
+            Dom.closeRenameInput(this.parentNode.parentNode) 
+            return;
+        }
+        Storage.renameTask(projectName,taskName,newTaskName)
+        Dom.closeRenameInput(this.parentNode.parentNode)
+        Dom.clearTasks()
+        Dom.loadTasks(projectName)
+
     }
 
     static setTaskDate(e){
@@ -320,7 +336,7 @@ export default class Dom {
     }
 
     static addProjectTask(){
-        const projectName = document.getElementById("project-name-head").children[0].textContent
+        const projectName = document.getElementById("project-head-title").textContent
         const addTaskInput = document.getElementById("input-add-task-popup").value
         const presentNot = Storage.getTodoList().getProject(projectName).contains(addTaskInput);
         if(addTaskInput === "" || presentNot){
