@@ -133,12 +133,12 @@ export default class Dom {
     }
     static openToday(){
         Dom.openProject("Today",this)
-        console.log("Open Today clicked")
+        // console.log("Open Today clicked")
     }
 
     static openWeek(){
         Dom.openProject("Upcoming",this)
-        console.log("Open Week clicked")
+        // console.log("Open Week clicked")
     }
 
     static handleProject(e){
@@ -155,7 +155,7 @@ export default class Dom {
     static openProject(projectName,button){
         // console.log("Load Tasks",projectName,button)
         button.classList.add("active")
-        console.log(button)
+        // console.log(button)
 
         Dom.loadProjectContent(projectName)
 
@@ -167,11 +167,11 @@ export default class Dom {
         <button class="project-task-name" data-task-button>
                                 <div class="task-name">
                                     <i class="fa-solid fa-o"></i>
-                                    <span> ${task}</span>
+                                    <span class="task-content"> ${task}</span>
                                     <input type="text" class="input-task-name" data-input-task-name>
                                 </div>
                                 <div class="task-date">
-                                    <span>${dueDate}</span>
+                                    <span class="due-date">${dueDate}</span>
                                     <div class="task-edit-btn">
                                     <input type="date" class="input-due-date" data-input-due-date>
                                     <i class="fa-regular fa-trash-can"></i>
@@ -181,6 +181,7 @@ export default class Dom {
         
         `
         Dom.initAddTaskBtn()
+        Dom.addTaskBtn()
     }
 
 
@@ -248,12 +249,26 @@ export default class Dom {
         const addTaskBtn = document.getElementById("add-task-btn")
         const addPopupTaskBtn = document.getElementById("add-taskForm-btn")
         const cancelPopupTaskBtn = document.getElementById("cancel-taskForm-btn")
-        const taskButton = document.querySelectorAll("[data-task-button]")
+        
         
     
         addTaskBtn.addEventListener('click', Dom.openTaskPopup)
         addPopupTaskBtn.addEventListener('click', Dom.addProjectTask)
         cancelPopupTaskBtn.addEventListener('click',Dom.closeTaskPopup)
+        
+    }
+
+    static addTaskBtn(){
+        const taskButton = document.querySelectorAll("[data-task-button]")
+        const taskInputButton = document.querySelectorAll("[data-input-task-name]")
+        const taskDateButton = document.querySelectorAll("[data-input-due-date]")
+
+
+
+        taskDateButton.forEach((inputVal)=>
+        inputVal.addEventListener("keypress",Dom.renameTask))
+        taskDateButton.forEach((dueDateInput)=> 
+        dueDateInput.addEventListener('change',Dom.setTaskDate))
         taskButton.forEach((taskBtn)=>
         taskBtn.addEventListener('click',Dom.handleTask))
     }
@@ -261,18 +276,42 @@ export default class Dom {
         const projectName = document.getElementById("project-head-title").innerText
         if(e.target.classList.contains("fa-trash-can")){
             Dom.deleteTask(projectName,this)
-        }else if(e.target.classList.contains('fa-pen-to-square')){
-            Dom.editTask(projectName,this)
+        }else if(e.target.classList.contains('task-content')){
+            Dom.openRenameInput(this)
+        }
+        else if(e.target.classList.contains('due-date')){
+            console.log("date Clicked")
+        }
+        else if(e.target.classList.contains("fa-o")){
+            console.log("set task complete")
         }
     }
 
-    static editTask(projectName,button){
-        console.log(button)
+    static renameTask(e){
+        console.log(e)
     }
 
-    static openTasksEditForm(button){
-        console.log(button)
+    static setTaskDate(e){
+        console.log(e)
     }
+
+    static openRenameInput(taskButton){
+        const taskName = taskButton.children[0].children[1]
+        const taskNameInput = taskButton.children[0].children[2]
+
+        taskName.classList.add("active")
+        taskNameInput.classList.add("active")
+    }
+
+
+    static closeRenameInput(taskButton){
+        const taskName = taskButton.children[0].children[1]
+        const taskNameInput = taskButton.children[0].children[2]
+
+        taskName.classList.remove("active")
+        taskNameInput.classList.remove("active")
+    }
+    
 
     static openTaskPopup(){
         const projectForm = document.getElementById('taskForm');

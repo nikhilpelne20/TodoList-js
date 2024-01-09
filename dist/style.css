@@ -415,3 +415,10 @@ button.project-task-name .edit-task-form button {
   border: 1px solid #ccc; 
 }
 
+.task-content.active{
+  display: none;
+}
+
+.input-task-name.active{
+  display: block;
+}
