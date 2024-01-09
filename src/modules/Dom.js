@@ -51,7 +51,10 @@ export default class Dom {
         .getProject(projectName)
         .getTasks()
         .forEach((task)=> Dom.createTasks(task.name,task.dueDate))
-        Dom.initAddTaskBtn()
+        if(projectName !== "Today" && projectName!=="Upcoming"){
+            Dom.initAddTaskBtn()
+        }
+        
     }
 
     static createProject(name){
@@ -184,7 +187,7 @@ export default class Dom {
 
         const projectContent = document.getElementById('task-list-section')
         projectContent.innerHTML=`
-                    <h3 id="project-head-title">${projectName}</h3>
+                    <h3 id="project-head-title" class="project-head-title">${projectName}</h3>
                         <div class="tasks-list-data" id="task-list-data"></div> `;
                         
                     if(projectName !== "Today" && projectName !=="Upcoming"){

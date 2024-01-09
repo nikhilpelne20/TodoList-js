@@ -377,5 +377,9 @@ button.project-task-name .edit-task-form button {
   margin-top: 5px;
 }
 
+.project-head-title{
+  font-size: 2rem;
+  margin-bottom: 25px;
+}
 
 
