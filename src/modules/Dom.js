@@ -350,7 +350,7 @@ export default class Dom {
             console.log("date Clicked")
         }
         else if(e.target.classList.contains("fa-o")){
-            console.log("set task complete")
+            Dom.setTaskComplete(projectName,this)
         }
     }
 
@@ -372,6 +372,14 @@ export default class Dom {
         Dom.clearTasks()
         Dom.loadTasks(projectName)
 
+    }
+
+    static setTaskComplete(projectName,button){
+        const taskName = button.children[0].children[1].innerText
+        Storage.deleteTask(projectName,taskName)
+        Dom.clearTasks()
+        Dom.loadTasks(projectName)
+        
     }
 
     static setTaskDate(e){
