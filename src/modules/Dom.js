@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import Storage from "./Storage";
 import TodoList from "./TodoList.js"
 import Project from "./Project";
@@ -401,7 +402,7 @@ export default class Dom {
         const taskButton = this.parentNode.parentNode
         const projectName = document.getElementById("project-head-title").innerText
         const taskName = taskButton.children[0].children[1].innerText
-        const newDueDate = this.value
+        const newDueDate = format(new Date(this.value), "dd/MM/yyyy");
 
         Storage.setTaskDate(projectName,taskName,newDueDate)
         
