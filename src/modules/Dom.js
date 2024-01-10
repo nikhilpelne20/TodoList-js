@@ -5,32 +5,8 @@ import Task from "./Task";
 
 export default class Dom {
     static loadHome() {
-        // Storage.addProject(new Project("Tom"));
-        // Storage.addProject(new Project("Jerry"));
-        // Storage.addTask("Jerry", new Task("sun"));
-        // Storage.addTask("Jerry", new Task("moon"));
-        // Storage.addTask("Jerry", new Task("stars"));
-        // Storage.addTask("Tom", new Task("pirateKing"))
-        // Storage.addTask("Tom", new Task("pirateHunter"));
-        // Storage.addTask("Tom", new Task("starBoy"));
-
-        // if(Storage.getTodoList().contains("Tom")){
-        //     Storage.renameProject("Tom","Sam")
-        //     return;
-        // }
-        // Storage.renameProject("Tom","Sam")
-        // Storage.deleteProject("Jerry")
-        // Storage.deleteProject("Tom")
-        // Storage.renameTask("Jerry","moon","Earth")
-        // Storage.renameTask("Jerry","sun","nika")
-        // Storage.deleteTask("Tom","starBoy")
-    
-        // Dom.loadProjects()
-        // Dom.openProject()
-        // Dom.openTask()
-        // Dom.loadProjects()
-        Dom.initAddProjectBtn()
         Dom.loadProjects()
+        Dom.initAddProjectBtn()
         Dom.initProjectBtn()
     }
 
@@ -55,183 +31,6 @@ export default class Dom {
             Dom.initAddTaskBtn()
         }
         
-    }
-
-    static createProject(name){
-        const userProject = document.getElementById("added-project-section")
-        userProject.innerHTML+=`
-        <button class="added-project-btn" data-project-btn>
-                            <div class="project-name" id="project-name">
-                                <i class="fa-solid fa-hashtag"></i>
-                                <span class="project-name-data" >${name}</span>  
-                                <input type="text" class="input-project-name" data-input-project-name>
-                            </div>
-                            <div class="project-option">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                                <i class="fa-regular fa-trash-can"></i>
-                            </div>
-        </button>
-        `
-        Dom.initProjectBtn()
-    }
-
-    static initAddProjectBtn(){
-        const addProjectBtn = document.querySelector('.add-project-btn');
-        const addProjectPopupBtn= document.querySelector('.add-btn');;
-        const cancelProjectPopupBtn = document.querySelector('.cancel-btn');
-
-        addProjectBtn.addEventListener('click', Dom.openPopupForm)
-        addProjectPopupBtn.addEventListener('click',Dom.addProject)
-        cancelProjectPopupBtn.addEventListener('click', Dom.closePopupForm)
-    }
-
-    static openPopupForm(){
-        const addProjectForm = document.getElementById('add-projectForm');
-        const addProjectBtnOverlay = document.getElementById('add-project-overlay')
-
-        addProjectForm.style.display = (addProjectForm.style.display === 'block') ? 'none' : 'block';
-        addProjectBtnOverlay.style.display = (addProjectBtnOverlay.style.display === 'block') ? 'none' : 'block';
-    }
-
-    static addProject(){
-        const projectInput = document.getElementById('projectName');
-        let projectValue = projectInput.value
-        if(projectValue === "" || Storage.getTodoList().contains(projectValue)){
-            Dom.closePopupForm()
-            return;
-        }
-        Storage.addProject(new Project(projectValue))
-        Dom.createProject(projectValue)
-        Dom.closePopupForm()
-
-    }
-
-    static closePopupForm(){
-        const addProjectForm = document.getElementById('add-projectForm');
-        const addProjectBtnOverlay = document.getElementById('add-project-overlay')
-        addProjectForm.style.display = (addProjectForm.style.display === 'block') ? 'none' : 'block';
-        addProjectBtnOverlay.style.display = (addProjectBtnOverlay.style.display === 'block') ? 'none' : 'block';
-        const projectInput = document.getElementById('projectName').value = '';
-    }
-
-    static initProjectBtn(){
-        const inboxProjectBtn = document.getElementById('project-inbox-btn');
-        const todayProjectBtn = document.getElementById('project-today-btn');
-        const weekProjectBtn  = document.getElementById('project-week-btn');
-
-        const allProjectBtn = document.querySelectorAll('[data-project-btn]');
-        
-
-        inboxProjectBtn.addEventListener('click', Dom.openInbox)
-        todayProjectBtn.addEventListener('click', Dom.openToday)
-        weekProjectBtn.addEventListener('click', Dom.openWeek);
-
-        allProjectBtn.forEach((projectBtn)=> 
-        projectBtn.addEventListener('click', Dom.handleProject))
-
-    }
-
-    static renameProject(e){
-        if(e.key !== "Enter")return;
-        
-        const projectName = this.parentNode.children[1].innerText
-        const newProjectName = this.value
-        // console.log(projectName,newProjectName)
-
-        if(newProjectName ==="" || Storage.getTodoList().contains(newProjectName)){
-            this.value=""
-            Dom.closeEditProject(this.parentNode.parentNode)
-            return;
-        }
-        Storage.renameProject(projectName,newProjectName);
-        Dom.clearProject()
-        Dom.loadProjects()
-        Dom.clearTaskPage()
-        Dom.loadProjectContent(this.value)
-        this.value=""
-    }
-
-    static openInbox(){
-        Dom.openProject("Inbox",this)
-    }
-    static openToday(){
-        Dom.openProject("Today",this)
-        // console.log("Open Today clicked")
-    }
-
-    static openWeek(){
-        Dom.openProject("Upcoming",this)
-        // console.log("Open Week clicked")
-    }
-
-    static handleProject(e){
-        const projectName = this.children[0].children[1].innerText;
-
-        if(e.target.classList.contains('fa-trash-can')){
-            Dom.deleteProject(projectName,this)
-            return;
-        }
-        else if(e.target.classList.contains('fa-pen-to-square')){
-            console.log("edit ProjectName")
-            Dom.openEditProject(this);
-            Dom.addEditProjectInput(this);
-        }
-        
-        Dom.openProject(projectName,this)
-    }
-
-    static addEditProjectInput(projectName){
-        const projectInputButton = projectName.children[0].children[2]
-        projectInputButton.addEventListener("keypress", Dom.renameProject)
-    }
-
-    static openEditProject(projectButton){
-        // console.log(projectName)
-        const projectName = projectButton.children[0].children[1]
-        const projectNameInput = projectButton.children[0].children[2]
-        
-        projectName.classList.add("active")
-        projectNameInput.classList.add("active")
-    }
-    static closeEditProject(projectButton){
-        console.log("close Project edit Button")
-        const projectName = projectButton.children[0].children[1]
-        const projectNameInput = projectButton.children[0].children[2]
-        
-        projectName.classList.remove("active")
-        projectNameInput.classList.remove("active")
-    }
-
-    static openProject(projectName,button){
-        // console.log("Load Tasks",projectName,button)
-        button.classList.add("active")
-        // console.log(button)
-
-        Dom.loadProjectContent(projectName)
-
-    }
-
-    static createTasks(task,dueDate){
-        const taskList = document.getElementById('task-list-data')
-        taskList.innerHTML +=`
-        <button class="project-task-name" data-task-button>
-                                <div class="task-name">
-                                    <i class="fa-solid fa-o"></i>
-                                    <span class="task-content">${task}</span>
-                                    <input type="text" class="input-task-name" data-input-task-name>
-                                </div>
-                                <div class="task-date">
-                                    <span class="due-date">${dueDate}</span>
-                                    <div class="task-edit-btn">
-                                    <input type="date" class="input-due-date" data-input-due-date>
-                                    <i class="fa-regular fa-trash-can"></i>
-                                    </div>
-                                </div>             
-        </button>
-        
-        `
-        Dom.initAddTaskBtn()
-        Dom.initTaskBtn()
     }
 
 
@@ -268,23 +67,168 @@ export default class Dom {
         Dom.loadTasks(projectName)
     }
 
-   
+    //creating content
 
-
-    static clearProject(){
+    static createProject(name){
         const userProject = document.getElementById("added-project-section")
-        userProject.innerText=""
+        userProject.innerHTML+=`
+        <button class="added-project-btn" data-project-btn>
+                            <div class="project-name" id="project-name">
+                                <i class="fa-solid fa-hashtag"></i>
+                                <span class="project-name-data" >${name}</span>  
+                                <input type="text" class="input-project-name" data-input-project-name>
+                            </div>
+                            <div class="project-option">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                                <i class="fa-regular fa-trash-can"></i>
+                            </div>
+        </button>
+        `
+        Dom.initProjectBtn()
     }
 
-    //not working check later
+    static createTasks(task,dueDate){
+        const taskList = document.getElementById('task-list-data')
+        taskList.innerHTML +=`
+        <button class="project-task-name" data-task-button>
+                                <div class="task-name">
+                                    <i class="fa-solid fa-o"></i>
+                                    <span class="task-content">${task}</span>
+                                    <input type="text" class="input-task-name" data-input-task-name>
+                                </div>
+                                <div class="task-date">
+                                    <span class="due-date">${dueDate}</span>
+                                    <div class="task-edit-btn">
+                                    <input type="date" class="input-due-date" data-input-due-date>
+                                    <i class="fa-regular fa-trash-can"></i>
+                                    </div>
+                                </div>             
+        </button>
+        
+        `
+        Dom.initAddTaskBtn()
+        Dom.initTaskBtn()
+    }
+
+    static clear(){
+        Dom.clearProject()
+        Dom.clearTasks()
+        Dom.clearTaskPage()
+    }
+
+    
+    static clearProject(){
+        const userProject = document.getElementById("added-project-section")
+        userProject.textContent=""
+    }
+
     static clearTasks(){
         const projectContent = document.getElementById('task-list-data')
-        projectContent.innerHTML=""
+        projectContent.textContent=""
     }
 
     static clearTaskPage(){
         const projectContent = document.getElementById('task-list-section')
-        projectContent.innerHTML=""
+        projectContent.textContent=""
+    }
+
+    //project add eventListener
+
+
+    static initAddProjectBtn(){
+        const addProjectBtn = document.querySelector('.add-project-btn');
+        const addProjectPopupBtn= document.querySelector('.add-btn');;
+        const cancelProjectPopupBtn = document.querySelector('.cancel-btn');
+
+        addProjectBtn.addEventListener('click', Dom.openPopupForm)
+        addProjectPopupBtn.addEventListener('click',Dom.addProject)
+        cancelProjectPopupBtn.addEventListener('click', Dom.closePopupForm)
+    }
+
+    static openPopupForm(){
+        const addProjectForm = document.getElementById('add-projectForm');
+        const addProjectBtnOverlay = document.getElementById('add-project-overlay')
+
+        addProjectForm.style.display = (addProjectForm.style.display === 'block') ? 'none' : 'block';
+        addProjectBtnOverlay.style.display = (addProjectBtnOverlay.style.display === 'block') ? 'none' : 'block';
+    }
+
+    static closePopupForm(){
+        const addProjectForm = document.getElementById('add-projectForm');
+        const addProjectBtnOverlay = document.getElementById('add-project-overlay')
+        addProjectForm.style.display = (addProjectForm.style.display === 'block') ? 'none' : 'block';
+        addProjectBtnOverlay.style.display = (addProjectBtnOverlay.style.display === 'block') ? 'none' : 'block';
+        const projectInput = document.getElementById('projectName').value = '';
+    }
+
+    static addProject(){
+        const projectInput = document.getElementById('projectName');
+        let projectValue = projectInput.value
+        if(projectValue === "" || Storage.getTodoList().contains(projectValue)){
+            Dom.closePopupForm()
+            return;
+        }
+        Storage.addProject(new Project(projectValue))
+        Dom.createProject(projectValue)
+        Dom.closePopupForm()
+    }
+
+    
+
+    static initProjectBtn(){
+        const inboxProjectBtn = document.getElementById('project-inbox-btn');
+        const todayProjectBtn = document.getElementById('project-today-btn');
+        const weekProjectBtn  = document.getElementById('project-week-btn');
+
+        const allProjectBtn = document.querySelectorAll('[data-project-btn]');
+        
+
+        inboxProjectBtn.addEventListener('click', Dom.openInbox)
+        todayProjectBtn.addEventListener('click', Dom.openToday)
+        weekProjectBtn.addEventListener('click', Dom.openWeek);
+
+        allProjectBtn.forEach((projectBtn)=> 
+        projectBtn.addEventListener('click', Dom.handleProject))
+
+    }
+
+
+    static openInbox(){
+        Dom.openProject("Inbox",this)
+    }
+    static openToday(){
+        Dom.openProject("Today",this)
+        // console.log("Open Today clicked")
+    }
+
+    static openWeek(){
+        Dom.openProject("Upcoming",this)
+        // console.log("Open Week clicked")
+    }
+
+    static handleProject(e){
+        const projectName = this.children[0].children[1].innerText;
+
+        if(e.target.classList.contains('fa-trash-can')){
+            Dom.deleteProject(projectName,this)
+            return;
+        }
+        else if(e.target.classList.contains('fa-pen-to-square')){
+            console.log("edit ProjectName")
+            Dom.openEditProject(this);
+            Dom.addEditProjectInput(this);
+        }
+        
+        Dom.openProject(projectName,this)
+    }
+
+    static openProject(projectName,button){
+        // console.log("Load Tasks",projectName,button)
+        button.classList.add("active")
+        // console.log(button)
+
+        Dom.loadProjectContent(projectName)
+
     }
 
     static deleteProject(projectName,button){
@@ -294,6 +238,50 @@ export default class Dom {
         Dom.loadProjects()
         Dom.openInbox()
     }
+
+    static openEditProject(projectButton){
+        const projectName = projectButton.children[0].children[1]
+        const projectNameInput = projectButton.children[0].children[2]
+        
+        projectName.classList.add("active")
+        projectNameInput.classList.add("active")
+    }
+    static closeEditProject(projectButton){
+        console.log("close Project edit Button")
+        const projectName = projectButton.children[0].children[1]
+        const projectNameInput = projectButton.children[0].children[2]
+        
+        projectName.classList.remove("active")
+        projectNameInput.classList.remove("active")
+    }
+
+    static addEditProjectInput(projectName){
+        const projectInputButton = projectName.children[0].children[2]
+        projectInputButton.addEventListener("keypress", Dom.renameProject)
+    }
+
+
+    static renameProject(e){
+        if(e.key !== "Enter")return;
+        
+        const projectName = this.parentNode.children[1].innerText
+        const newProjectName = this.value
+        // console.log(projectName,newProjectName)
+
+        if(newProjectName ==="" || Storage.getTodoList().contains(newProjectName)){
+            this.value=""
+            Dom.closeEditProject(this.parentNode.parentNode)
+            return;
+        }
+        Storage.renameProject(projectName,newProjectName);
+        Dom.clearProject()
+        Dom.loadProjects()
+        Dom.clearTaskPage()
+        Dom.loadProjectContent(this.value)
+        this.value=""
+    }
+
+    // ADD TASK EVENT LISTENERS
 
     static initAddTaskBtn(){
         const initTaskBtn = document.getElementById("add-task-btn")
@@ -307,6 +295,35 @@ export default class Dom {
         cancelPopupTaskBtn.addEventListener('click',Dom.closeTaskPopup)
         
     }
+
+
+    static openTaskPopup(){
+        const projectForm = document.getElementById('taskForm');
+        projectForm.style.display = (projectForm.style.display === 'block') ? 'none' : 'block';
+
+    }
+
+    static addProjectTask(){
+        const projectName = document.getElementById("project-head-title").textContent
+        const addTaskInput = document.getElementById("input-add-task-popup").value
+        const presentNot = Storage.getTodoList().getProject(projectName).contains(addTaskInput);
+        if(addTaskInput === "" || presentNot){
+            Dom.closeTaskPopup()
+            return;
+        }
+        Storage.addTask(projectName, new Task(addTaskInput));
+        Dom.createTasks(addTaskInput, "no date")
+        Dom.closeTaskPopup()
+    }
+
+    static closeTaskPopup(){
+        const projectForm = document.getElementById('taskForm').style.display = 'none';
+        const addTaskInput = document.getElementById("input-add-task-popup")
+        addTaskInput.value=""
+    }
+
+
+    
 
     static initTaskBtn(){
         const taskButton = document.querySelectorAll("[data-task-button]")
@@ -379,31 +396,7 @@ export default class Dom {
     }
     
 
-    static openTaskPopup(){
-        const projectForm = document.getElementById('taskForm');
-        projectForm.style.display = (projectForm.style.display === 'block') ? 'none' : 'block';
-
-    }
-
-    static addProjectTask(){
-        const projectName = document.getElementById("project-head-title").textContent
-        const addTaskInput = document.getElementById("input-add-task-popup").value
-        const presentNot = Storage.getTodoList().getProject(projectName).contains(addTaskInput);
-        if(addTaskInput === "" || presentNot){
-            Dom.closeTaskPopup()
-            return;
-        }
-        Storage.addTask(projectName, new Task(addTaskInput));
-        Dom.createTasks(addTaskInput, "no date")
-        Dom.closeTaskPopup()
-    }
-
-    static closeTaskPopup(){
-        const projectForm = document.getElementById('taskForm').style.display = 'none';
-        const addTaskInput = document.getElementById("input-add-task-popup")
-        addTaskInput.value=""
-    }
-
+    
     static deleteTask(projectName,button){
         const taskName = button.children[0].children[1].innerText
         Storage.deleteTask(projectName,taskName)
