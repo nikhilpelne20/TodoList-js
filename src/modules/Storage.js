@@ -63,6 +63,12 @@ export default class Storage {
         newTodoList.getProject(projectName).getTask(taskName).setName(newTaskName)
         Storage.saveTodoList(newTodoList)
     }
+
+    static setTaskDate(projectName,taskName, newDueDate){
+        const newTodoList = Storage.getTodoList()
+        newTodoList.getProject(projectName).getTask(taskName).setDate(newDueDate)
+        Storage.saveTodoList(newTodoList)
+    }
     
 }
 

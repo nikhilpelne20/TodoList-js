@@ -405,6 +405,13 @@ button.project-task-name .edit-task-form button {
   border: 1px solid #ccc; 
 }
 
+.due-date.active{
+  display: none;
+}
+.due-date{
+  display: block;
+}
+
 .input-due-date{
   display: none;
   font-size: 1rem;
@@ -413,6 +420,10 @@ button.project-task-name .edit-task-form button {
   box-sizing: border-box;
   border-radius: 5px;
   border: 1px solid #ccc; 
+}
+
+.input-due-date.active{
+  display: block;
 }
 
 .task-content.active{

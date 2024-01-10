@@ -98,10 +98,8 @@ export default class Dom {
                                 </div>
                                 <div class="task-date">
                                     <span class="due-date">${dueDate}</span>
-                                    <div class="task-edit-btn">
                                     <input type="date" class="input-due-date" data-input-due-date>
                                     <i class="fa-regular fa-trash-can"></i>
-                                    </div>
                                 </div>             
         </button>
         
@@ -347,11 +345,28 @@ export default class Dom {
             Dom.openRenameInput(this)
         }
         else if(e.target.classList.contains('due-date')){
-            console.log("date Clicked")
+            Dom.openSetInputDate(this)
         }
         else if(e.target.classList.contains("fa-o")){
             Dom.setTaskComplete(projectName,this)
         }
+    }
+
+    static openSetInputDate(taskButton){
+        const dueDate = taskButton.children[1].children[0]
+        const dueDateInput =taskButton.children[1].children[1]
+        
+        dueDate.classList.add("active")
+        dueDateInput.classList.add("active")
+    }
+
+
+    static closeSetInputDate(taskButton){
+        const dueDate = taskButton.children[1].children[0]
+        const dueDateInput =taskButton.children[1].children[1]
+        
+        dueDate.classList.remove("active")
+        dueDateInput.classList.remove("active")
     }
 
     static renameTask(e){
@@ -382,8 +397,18 @@ export default class Dom {
         
     }
 
-    static setTaskDate(e){
-        console.log(e)
+    static setTaskDate(){
+        const taskButton = this.parentNode.parentNode
+        const projectName = document.getElementById("project-head-title").innerText
+        const taskName = taskButton.children[0].children[1].innerText
+        const newDueDate = this.value
+
+        Storage.setTaskDate(projectName,taskName,newDueDate)
+        
+        Dom.clearTasks()
+        Dom.loadTasks(projectName)
+        Dom.closeSetInputDate(this.parentNode.parentNode)
+
     }
 
     static openRenameInput(taskButton){
