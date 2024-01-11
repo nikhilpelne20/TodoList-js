@@ -385,6 +385,12 @@ export default class Dom {
 
     static setTaskComplete(projectName,button){
         const taskName = button.children[0].children[1].innerText
+
+        if(projectName ==="Today" || projectName==="Upcoming"){
+            const projectNameMain = (button.children[0].children[1].textContent).split(/[\(\)]/)[1]
+            Storage.deleteTask(projectNameMain,taskName)
+        }
+
         Storage.deleteTask(projectName,taskName)
         Dom.clearTasks()
         Dom.loadTasks(projectName)
@@ -426,6 +432,12 @@ export default class Dom {
     
     static deleteTask(projectName,button){
         const taskName = button.children[0].children[1].innerText
+
+        if(projectName ==="Today" || projectName==="Upcoming"){
+            const projectNameMain = (button.children[0].children[1].textContent).split(/[\(\)]/)[1]
+            Storage.deleteTask(projectNameMain,taskName)
+        }
+
         Storage.deleteTask(projectName,taskName)
         Dom.clearTasks()
         Dom.loadTasks(projectName)
