@@ -52,10 +52,6 @@ export default class Dom {
                                     <label for="projectName">Task Name</label>
                                     <input type="text" id="input-add-task-popup" name="projectName">
                                     <div class="task-date-task-btn">
-                                        <div class="task-dueDate">
-                                            <label for="dueDate">DueDate</label>
-                                            <input type="date" id="dueDate" name="dueDate">
-                                        </div>
                                         <div class="task-btn">
                                             <button type="button" class="add-taskForm-btn" id="add-taskForm-btn" >Add</button>
                                             <button type="button" class="cancel-taskForm-btn" id="cancel-taskForm-btn">Cancel</button>
