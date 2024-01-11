@@ -1,4 +1,4 @@
-import { toDate, isToday, isThisWeek, subDays } from "date-fns";
+import { isAfter, isToday, startOfDay } from "date-fns";
 
 export default class Project {
     constructor(name) {
@@ -39,16 +39,16 @@ export default class Project {
 
     getTasksToday(){
         return this.tasks.filter((task)=>{
-            
             const taskDate = new Date(task.getDateFormat());
-            return isToday(toDate(taskDate));
+            return isToday(taskDate);
         })
     }
 
     getTasksUpcoming(){
+        const today = startOfDay(new Date())
         return this.tasks.filter((task)=> {
             const taskUpcoming = new Date(task.getDateFormat());
-            return isThisWeek(subDays(toDate(taskUpcoming),1));
+            return isAfter(taskUpcoming,today)
         })
     }
 }
