@@ -346,7 +346,7 @@ button.project-task-name:hover .task-edit-btn i{
   color: var(--primary-txt-color);
   border: none;
   padding: 5px 10px;
-  margin-left: 10px;
+  /* margin-left: 10px; */
   cursor: pointer;
   font-size: 1.2rem;
   border-radius: 5px;
@@ -359,11 +359,11 @@ button.cancel-taskForm-btn{
   background-color: var(--cancel-btn-color);
 }
 
-.task-date-task-btn{
+/* .task-date-task-btn{
   display: flex;
   justify-content: space-between;
   align-items: flex-end
-}
+} */
 
 .add-task-form button:hover {
   background-color: var(--primary-hover-color);
@@ -373,8 +373,9 @@ button.cancel-taskForm-btn{
 }
 
 .task-btn{
-  margin-top: 20px;
-  justify-content: flex-end;
+  display: flex;
+  margin-top: 15px;
+  gap: 15px;
 }
 
 
