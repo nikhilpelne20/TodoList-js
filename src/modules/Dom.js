@@ -199,8 +199,8 @@ export default class Dom {
     }
 
     static openWeek(){
+        Storage.getUpcomingProject()
         Dom.openProject("Upcoming",this)
-        // console.log("Open Week clicked")
     }
 
     static handleProject(e){
@@ -211,7 +211,6 @@ export default class Dom {
             return;
         }
         else if(e.target.classList.contains('fa-pen-to-square')){
-            console.log("edit ProjectName")
             Dom.openEditProject(this);
             Dom.addEditProjectInput(this);
         }
@@ -246,7 +245,6 @@ export default class Dom {
         projectNameInput.classList.add("active")
     }
     static closeEditProject(projectButton){
-        console.log("close Project edit Button")
         const projectName = projectButton.children[0].children[1]
         const projectNameInput = projectButton.children[0].children[2]
         
@@ -265,7 +263,7 @@ export default class Dom {
         
         const projectName = this.parentNode.children[1].innerText
         const newProjectName = this.value
-        // console.log(projectName,newProjectName)
+    
 
         if(newProjectName ==="" || Storage.getTodoList().contains(newProjectName)){
             this.value=""
@@ -375,7 +373,6 @@ export default class Dom {
 
         const projectName = document.getElementById("project-head-title").innerText
         const taskName = this.parentNode.children[1].innerText
-        console.log(taskName)
         const newTaskName = this.value
 
         if(newTaskName ==="" || Storage.getTodoList().getProject(projectName).contains(newTaskName)){

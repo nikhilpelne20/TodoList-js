@@ -1,3 +1,4 @@
+import { compareAsc, toDate } from "date-fns";
 import Project from "./Project";
 import Task from "./Task";
 
@@ -45,7 +46,6 @@ export default class TodoList {
             
             
             const todayTasks = project.getTasksToday()
-            console.log(todayTasks)
             todayTasks.forEach((task)=> {
                 const taskName = task.getName() + `(${project.getName()})`;
                 this.getProject("Today").addTask(new Task(taskName, task.getDate()));
@@ -54,7 +54,24 @@ export default class TodoList {
     }
 
     getUpcomingProject(){
-        console.log("upcoming")
+        this.getProject("Upcoming").tasks = []
+        this.projects.forEach((project)=>{
+            if(project.getName()==="Today" || project.getName()==="Upcoming")
+                return
+
+            const upcomingTask = project.getTasksUpcoming()
+            upcomingTask.forEach((task)=>{
+                const taskName = task.getName() + `(${project.getName()})`;
+                this.getProject("Upcoming").addTask(new Task(taskName, task.getDate()))
+            })
+        })
+
+        this.getProject("Upcoming").setTasks(this.getProject("Upcoming").getTasks().sort((taskA,taskB)=>
+        compareAsc(
+            toDate(new Date(taskA.getDateFormat())),
+            toDate(new Date(taskB.getDateFormat()))
+            )
+        ))
     }
 
     
