@@ -1,3 +1,5 @@
+import { toDate, isToday, isThisWeek, subDays } from "date-fns";
+
 export default class Project {
     constructor(name) {
         this.name = name;
@@ -33,5 +35,21 @@ export default class Project {
     deleteTask(taskName){
         const task = this.tasks.find((task)=> task.getName() === taskName)
         this.tasks.splice(this.tasks.indexOf(task),1)
+    }
+
+    getTasksToday(){
+        return this.tasks.filter((task)=>{
+            
+            const taskDate = new Date(task.getDateFormat());
+            console.log(taskDate)
+            return isToday(toDate(taskDate));
+        })
+    }
+
+    getTasksUpcoming(){
+        return this.tasks.filter((task)=> {
+            const taskUpcoming = new Date(task.getDateFormat());
+            return isThisWeek(subDays(toDate(taskUpcoming),1));
+        })
     }
 }

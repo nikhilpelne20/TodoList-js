@@ -1,4 +1,5 @@
 import Project from "./Project";
+import Task from "./Task";
 
 export default class TodoList {
     constructor() {
@@ -34,6 +35,26 @@ export default class TodoList {
 
     getProjects() {
         return this.projects
+    }
+
+    getTodayProject(){
+        this.getProject("Today").tasks=[];
+        this.projects.forEach((project)=> {
+            if(project.getName()==="Today" || project.getName()==="Upcoming")
+                return;
+            
+            
+            const todayTasks = project.getTasksToday()
+            console.log(todayTasks)
+            todayTasks.forEach((task)=> {
+                const taskName = task.getName() + `(${project.getName()})`;
+                this.getProject("Today").addTask(new Task(taskName, task.getDate()));
+            })
+        })
+    }
+
+    getUpcomingProject(){
+        console.log("upcoming")
     }
 
     

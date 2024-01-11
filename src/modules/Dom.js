@@ -7,7 +7,6 @@ import Task from "./Task";
 export default class Dom {
     static loadHome() {
         Dom.loadProjects()
-        Dom.initAddProjectBtn()
         Dom.initProjectBtn()
     }
 
@@ -19,8 +18,8 @@ export default class Dom {
                 Dom.createProject(project.name)
             }
         } );
-
-        Dom.initProjectBtn()
+        Dom.initAddProjectBtn()
+        
     }
 
     static loadTasks(projectName){
@@ -105,7 +104,6 @@ export default class Dom {
         </button>
         
         `
-        Dom.initAddTaskBtn()
         Dom.initTaskBtn()
     }
 
@@ -196,8 +194,8 @@ export default class Dom {
         Dom.openProject("Inbox",this)
     }
     static openToday(){
+        Storage.getTodayProject()
         Dom.openProject("Today",this)
-        // console.log("Open Today clicked")
     }
 
     static openWeek(){
@@ -222,10 +220,12 @@ export default class Dom {
     }
 
     static openProject(projectName,button){
-        // console.log("Load Tasks",projectName,button)
-        button.classList.add("active")
-        // console.log(button)
+        const defaultProjectBtn = document.querySelectorAll(".project-btn-fix")
+        const projectBtn = document.querySelectorAll(".added-project-btn")
 
+        const buttons = [...defaultProjectBtn,...projectBtn]
+        buttons.forEach((button)=> button.classList.remove("active"))
+        button.classList.add("active")
         Dom.loadProjectContent(projectName)
 
     }

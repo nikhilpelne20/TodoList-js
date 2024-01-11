@@ -69,6 +69,21 @@ export default class Storage {
         newTodoList.getProject(projectName).getTask(taskName).setDate(newDueDate)
         Storage.saveTodoList(newTodoList)
     }
+
+    static getTodayProject(){
+        const newTodoList = Storage.getTodoList()
+        newTodoList.getTodayProject()
+        Storage.saveTodoList(newTodoList)
+        
+
+    }
+
+    static getUpcomingProject(){
+        const newTodoList= Storage.getTodoList()
+        newTodoList.getUpcomingProject()
+        Storage.saveTodoList(newTodoList)
+
+    }
     
 }
 
