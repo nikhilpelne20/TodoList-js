@@ -116,11 +116,11 @@ body {
 }
 
 
-.add-project-btn i ,.add-task-btn i{
+.add-project-btn i ,.add-task-btn i, .task-date i{
   opacity: 0.3;
 }
 
-.add-project-btn:hover i ,.add-task-btn:hover i{
+.add-project-btn:hover i ,.add-task-btn:hover i , .task-date:hover i{
   opacity: 1;
 }
 
@@ -226,13 +226,7 @@ button.cancel-btn{
   width: 80%;
   padding: 80px 300px 10px 150px;
 }
-/* .project-name-head{
-  margin-bottom: 30px;
-}
-.project-name-head h3{
-  font-size: 2rem;
-  font-weight: 500;
-} */
+
 
 .tasks-list-data{
   display: flex;
@@ -304,7 +298,10 @@ button.project-task-name{
   color: var(--secondary-txt-color);
 }
 
-.add-project-task-btn button:hover{
+
+
+.add-project-task-btn button:hover,.task-date i:hover{
+  opacity: 1;
   background-color: var(--primary-hover-color);
   cursor: pointer;
 }
@@ -400,7 +397,7 @@ button.project-task-name .edit-task-form button {
   display: none;
   font-size: 1rem;
   width: 100%;
-  padding: 5px;
+  padding: 2px;
   box-sizing: border-box;
   border-radius: 5px;
   border: 1px solid #ccc; 
@@ -417,7 +414,7 @@ button.project-task-name .edit-task-form button {
   display: none;
   font-size: 1rem;
   width: 100%;
-  padding: 5px;
+  padding: 2px;
   box-sizing: border-box;
   border-radius: 5px;
   border: 1px solid #ccc; 
