@@ -366,7 +366,7 @@ export default class Dom {
 
     static renameTask(e){
         if(e.key !== "Enter")return;
-        const taskButton = this.parentNode.parentNode
+        
         const projectName = document.getElementById("project-head-title").innerText
         const taskName = this.parentNode.children[1].innerText
         const newTaskName = this.value
@@ -446,10 +446,20 @@ export default class Dom {
 
     static openRenameInput(taskButton){
         const taskName = taskButton.children[0].children[1]
+        let taskNameBefore = taskName.innerText
         const taskNameInput = taskButton.children[0].children[2]
+        const projectName = taskButton.parentNode.parentNode.children[0].innerText
+        console.log(projectName)
+        console.log(taskNameBefore)
+
+        if(projectName ==="Today" || projectName==="Upcoming"){
+            taskNameBefore = taskNameBefore.split(/[\(\)]/)[0]
+        }
+
 
         taskName.classList.add("active")
         taskNameInput.classList.add("active")
+        taskNameInput.value = taskNameBefore 
     }
 
 
