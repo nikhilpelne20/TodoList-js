@@ -235,7 +235,8 @@ export default class Dom {
 
     static openEditProject(projectButton){
         const projectName = projectButton.children[0].children[1]
-        const projectNameInput = projectButton.children[0].children[2]
+        let projectNameInput = projectButton.children[0].children[2]
+        projectNameInput.value = projectName.innerText
         
         projectName.classList.add("active")
         projectNameInput.classList.add("active")
