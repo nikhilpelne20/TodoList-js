@@ -366,7 +366,7 @@ export default class Dom {
 
     static renameTask(e){
         if(e.key !== "Enter")return;
-
+        const taskButton = this.parentNode.parentNode
         const projectName = document.getElementById("project-head-title").innerText
         const taskName = this.parentNode.children[1].innerText
         const newTaskName = this.value
@@ -376,7 +376,24 @@ export default class Dom {
             Dom.closeRenameInput(this.parentNode.parentNode) 
             return;
         }
-        Storage.renameTask(projectName,taskName,newTaskName)
+
+        if(projectName ==="Today" || projectName==="Upcoming"){
+            const mainProjectName = taskName.split(/[\(\)]/)[1]
+            const mainTaskName = taskName.split(/[\(\)]/)[0]
+            Storage.renameTask(projectName,taskName,newTaskName)
+            Storage.renameTask(mainProjectName,mainTaskName,newTaskName)
+            if(projectName==="Today"){
+                Storage.getTodayProject()
+            }
+            else{
+                Storage.getUpcomingProject()
+            }
+
+        }
+        else{
+            Storage.renameTask(projectName,taskName,newTaskName)
+        }
+       
         Dom.closeRenameInput(this.parentNode.parentNode)
         Dom.clearTasks()
         Dom.loadTasks(projectName)
@@ -403,7 +420,23 @@ export default class Dom {
         const taskName = taskButton.children[0].children[1].innerText
         const newDueDate = format(new Date(this.value), "dd/MM/yyyy");
 
-        Storage.setTaskDate(projectName,taskName,newDueDate)
+    
+        if(projectName === "Today" || projectName === "Upcoming"){
+            const mainProjectName = taskName.split(/[\(\)]/)[1]
+            const mainTaskName = taskName.split(/[\(\)]/)[0]
+        
+            Storage.setTaskDate(projectName,taskName,newDueDate)
+            Storage.setTaskDate(mainProjectName,mainTaskName,newDueDate)
+            if(projectName === "Today"){
+                Storage.getTodayProject()
+            }
+            else{
+                Storage.getUpcomingProject()
+            }
+        }
+        else{
+            Storage.setTaskDate(projectName,taskName,newDueDate)
+        }
         
         Dom.clearTasks()
         Dom.loadTasks(projectName)
