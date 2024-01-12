@@ -8,6 +8,7 @@ export default class Dom {
     static loadHome() {
         Dom.loadProjects()
         Dom.initProjectBtn()
+        document.addEventListener('keydown',Dom.handelKeyboardInput)
     }
 
     static loadProjects(){
@@ -20,6 +21,10 @@ export default class Dom {
         } );
         Dom.initAddProjectBtn()
         
+    }
+
+    static handelKeyboardInput(e){
+        if(e.key === "Escape") Dom.closeAllInputs()
     }
 
     static loadTasks(projectName){
@@ -233,10 +238,17 @@ export default class Dom {
         Dom.openInbox()
     }
 
+    static closeAllInputs(){
+        Dom.closeAllTaskInputs()
+        Dom.closeAllDateInputs()
+        Dom.closeAllProjectInputs()
+    }
+
     static openEditProject(projectButton){
         const projectName = projectButton.children[0].children[1]
         let projectNameInput = projectButton.children[0].children[2]
         projectNameInput.value = projectName.innerText
+        Dom.closeAllInputs()
         
         projectName.classList.add("active")
         projectNameInput.classList.add("active")
@@ -247,6 +259,11 @@ export default class Dom {
         
         projectName.classList.remove("active")
         projectNameInput.classList.remove("active")
+    }
+
+    static closeAllProjectInputs(){
+        const projectPopups = document.querySelectorAll("[data-project-btn]")
+        projectPopups.forEach((button)=>Dom.closeEditProject(button))
     }
 
     static addEditProjectInput(projectName){
@@ -349,9 +366,11 @@ export default class Dom {
     }
 
     static openSetInputDate(taskButton){
+        console.log(taskButton)
         const dueDate = taskButton.children[1].children[0]
         const dueDateInput =taskButton.children[1].children[1]
         
+        Dom.closeAllInputs()
         dueDate.classList.add("active")
         dueDateInput.classList.add("active")
     }
@@ -363,6 +382,11 @@ export default class Dom {
         
         dueDate.classList.remove("active")
         dueDateInput.classList.remove("active")
+    }
+
+    static closeAllDateInputs(){
+        const taskNames = document.querySelectorAll("[data-task-button]")
+        taskNames.forEach((DatePopup)=> Dom.closeSetInputDate(DatePopup))
     }
 
     static renameTask(e){
@@ -450,14 +474,13 @@ export default class Dom {
         let taskNameBefore = taskName.innerText
         const taskNameInput = taskButton.children[0].children[2]
         const projectName = taskButton.parentNode.parentNode.children[0].innerText
-        console.log(projectName)
-        console.log(taskNameBefore)
-
+      
+        Dom.closeAllInputs()
         if(projectName ==="Today" || projectName==="Upcoming"){
             taskNameBefore = taskNameBefore.split(/[\(\)]/)[0]
         }
 
-
+        
         taskName.classList.add("active")
         taskNameInput.classList.add("active")
         taskNameInput.value = taskNameBefore 
@@ -470,6 +493,11 @@ export default class Dom {
 
         taskName.classList.remove("active")
         taskNameInput.classList.remove("active")
+    }
+
+    static closeAllTaskInputs(){
+        const taskNames = document.querySelectorAll("[data-task-button]")
+        taskNames.forEach((task)=> Dom.closeRenameInput(task))
     }
     
 
