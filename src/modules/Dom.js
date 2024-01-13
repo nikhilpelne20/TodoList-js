@@ -1,6 +1,5 @@
 import { format } from "date-fns";
 import Storage from "./Storage";
-import TodoList from "./TodoList.js"
 import Project from "./Project";
 import Task from "./Task";
 
@@ -8,6 +7,7 @@ export default class Dom {
     static loadHome() {
         Dom.loadProjects()
         Dom.initProjectBtn()
+        Dom.openProject("Inbox", document.getElementById("project-inbox-btn"))
         document.addEventListener('keydown',Dom.handelKeyboardInput)
     }
 
