@@ -1,5 +1,5 @@
-# TodoList-js
-A ToDoList application for The Odin Project. 
+# TodoList
+A ToDoList application from The Odin Project. 
 Check out the preview [here](https://mr-bones3108.github.io/TodoList-js/).
 
 ## Tech use
@@ -24,8 +24,7 @@ Check out the preview [here](https://mr-bones3108.github.io/TodoList-js/).
 - Important Tasks Flag
 - Mobile Responsiveness
 
-## Preview
-- Include the actual link to your preview here.
+
 
 
 
