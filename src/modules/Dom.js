@@ -235,7 +235,7 @@ export default class Dom {
         Dom.clearTaskPage()
         Storage.deleteProject(projectName)
         Dom.loadProjects()
-        Dom.openInbox()
+        Dom.openProject("Inbox", document.getElementById("project-inbox-btn"))
     }
 
     static closeAllInputs(){
